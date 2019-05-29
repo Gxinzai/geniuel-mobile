@@ -1,0 +1,379 @@
+<template>
+  <div class="home">
+    <div class="header">
+      <img class="loaction" src="../assets/icon-loaction.png" alt="" />
+      <span class="loaction-word grayFont">位置</span>
+      <img class="logo" alt="logo" src="../assets/logo.png" />
+      <img class="search" src="../assets/icon-search.png" alt="" />
+      <img class="admin" src="../assets/icon-admin.png" alt="" />
+    </div>
+    <cube-slide :showDots="false" :data="banner"></cube-slide>
+    <div class="nav">
+      <div class="nav-container">
+        <div class="nav-item fjac">
+          <router-link to="/">
+            <img
+              src="../assets/index-icon-1.png"
+              style="width: 7.33vw;"
+              alt=""
+            />
+            <p>在职博士</p>
+          </router-link>
+        </div>
+        <div class="nav-item fjac">
+          <router-link to="/">
+            <img
+              src="../assets/index-icon-2.png"
+              style="width: 6.53vw;"
+              alt=""
+            />
+            <p>在职硕士</p>
+          </router-link>
+        </div>
+        <div class="nav-item fjac">
+          <router-link to="/">
+            <img
+              src="../assets/index-icon-3.png"
+              style="width: 6.8vw;"
+              alt=""
+            />
+            <p>高级研修</p>
+          </router-link>
+        </div>
+        <div class="nav-item fjac">
+          <router-link to="/">
+            <img
+              src="../assets/index-icon-4.png"
+              style="width: 6.4vw;"
+              alt=""
+            />
+            <p>国外留学</p>
+          </router-link>
+        </div>
+        <div class="nav-item fjac">
+          <router-link to="/">
+            <img
+              src="../assets/index-icon-5.png"
+              style="width: 6.8vw;"
+              alt=""
+            />
+            <p>合作办学</p>
+          </router-link>
+        </div>
+        <div class="nav-item fjac">
+          <router-link to="/">
+            <img
+              src="../assets/index-icon-6.png"
+              style="width: 8.67vw;"
+              alt=""
+            />
+            <p>院校选择</p>
+          </router-link>
+        </div>
+        <div class="nav-item fjac">
+          <router-link to="/">
+            <img
+              src="../assets/index-icon-7.png"
+              style="width: 5.87vw;"
+              alt=""
+            />
+            <p>专业选择</p>
+          </router-link>
+        </div>
+        <div class="nav-item fjac">
+          <router-link to="/">
+            <img src="../assets/index-icon-8.png" style="width:8.8vw;" alt="" />
+            <p>简章选择</p>
+          </router-link>
+        </div>
+        <div class="nav-item fjac">
+          <router-link to="/">
+            <img src="../assets/index-icon-9.png" style="width: 8vw;" alt="" />
+            <p>报名入口</p>
+          </router-link>
+        </div>
+        <div class="nav-item fjac">
+          <router-link to="/">
+            <img
+              src="../assets/index-icon-10.png"
+              style="width: 10.13vw;"
+              alt=""
+            />
+            <p>资讯</p>
+          </router-link>
+        </div>
+      </div>
+    </div>
+    <div class="message-container fac">
+      <div class="message-left">消息</div>
+      <cube-slide
+        class="message-right"
+        ref="slide"
+        :data="message"
+        :showDots="false"
+        direction="vertical"
+      >
+        <cube-slide-item v-for="(item, index) in message" :key="index">
+          <p>{{ item }}</p>
+        </cube-slide-item>
+      </cube-slide>
+    </div>
+    <div class="big-hr"></div>
+    <div>
+      <p class="h1 fjac">在职研究生·专题推荐</p>
+      <p class="grayFont h2">
+        国内报考 在职研究生、高级课程班项目， 符合条件即可申请博士项目
+      </p>
+      <div class="fjsa fac" style="padding-bottom: 4vw;">
+        <img src="../assets/sheke-1.png" style="width: 30.27vw" alt="" />
+        <img src="../assets/sheke-2.png" style="width: 30.27vw" alt="" />
+        <img src="../assets/sheke-3.png" style="width: 30.27vw" alt="" />
+      </div>
+    </div>
+    <div class="big-hr"></div>
+    <div>
+      <p class="h1 fjac">国外留学</p>
+      <p class="grayFont">
+        在职研究生/博士留学项目
+      </p>
+      <router-link to="/">
+        <p class="grayFont h2">
+          << 点击查看更多
+        </p>
+      </router-link>
+      <div class="fjsa fac" style="padding-bottom: 4vw;">
+        <img
+          src="../assets/菲律宾德拉萨-阿拉内塔大学.png"
+          style="width: 30.67vw"
+          alt=""
+        />
+        <img
+          src="../assets/菲律宾法蒂玛大学.png"
+          style="width: 30.67vw"
+          alt=""
+        />
+        <img src="../assets/菲律宾国父大学.png" style="width: 30.67vw" alt="" />
+      </div>
+    </div>
+    <div class="big-hr"></div>
+    <div>
+      <p class="h1 fjac">高级研修班</p>
+      <p class="grayFont h2">
+        << 点击查看更多
+      </p>
+      <div class="fjsa fac" style="padding-bottom: 4vw;">
+        <img src="../assets/qingshan-1.png" style="width: 30.67vw" alt="" />
+        <img src="../assets/qingshan-2.png" style="width: 30.67vw" alt="" />
+        <img src="../assets/qingshan-3.png" style="width: 30.67vw" alt="" />
+      </div>
+    </div>
+
+    <div class="big-hr"></div>
+    <div>
+      <p class="h1 fjac">报考指南</p>
+      <p class="grayFont h2">
+        << 点击查看更多
+      </p>
+      <div style="padding-bottom: 2vw;">
+        <div class="fac guide-item">
+          <img src="../assets/ztad01.png" alt="" />
+          <div>
+            <p class="b tl">什么是在职研究生</p>
+            <p class="tj">
+              {{ guide[0].desc | wordLimit(43) }}
+            </p>
+          </div>
+        </div>
+        <div class="fac guide-item">
+          <img src="../assets/ztad02.png" alt="" />
+          <div>
+            <p class="b tl">什么是在职研究生</p>
+            <p class="tj">
+              在职研究生是国家计划内，以在职人员的身份，半脱产，部分时间在职工作，部分时间在校学习的...
+            </p>
+          </div>
+        </div>
+        <div class="fac guide-item">
+          <img src="../assets/ztad03.png" alt="" />
+          <div>
+            <p class="b tl">什么是在职研究生</p>
+            <p class="tj">
+              在职研究生是国家计划内，以在职人员的身份，半脱产，部分时间在职工作，部分时间在校学习的...
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="big-hr"></div>
+    <my-footer></my-footer>
+    <HelloWorld msg="Welcome to Your Vue.js App" />
+  </div>
+</template>
+<script>
+import HelloWorld from "@/components/HelloWorld.vue";
+import MyFooter from "../components/MyFooter";
+
+export default {
+  name: "home",
+  components: {
+    MyFooter,
+    HelloWorld
+  },
+  data() {
+    return {
+      banner: [
+        {
+          url: "http://www.didichuxing.com/",
+          image:
+            "http://www.geniuel.com/uploadfile/2019/05/28/20190528154759u2qxV7.png"
+        },
+        {
+          url: "http://www.didichuxing.com/",
+          image:
+            "http://www.geniuel.com/uploadfile/2019/05/28/20190528154759u2qxV7.png"
+        },
+        {
+          url: "http://www.didichuxing.com/",
+          image:
+            "http://www.geniuel.com/uploadfile/2019/05/28/20190528154759u2qxV7.png"
+        }
+      ],
+      message: [
+        "刚刚138****8909报考清华大学在职博士课程",
+        "刚刚138****8909报考清华大学在职博士课程",
+        "刚刚138****8909报考清华大学在职博士课程"
+      ],
+      guide: [
+        {
+          img: "",
+          title: "",
+          desc:
+            "在职研究生是国家计划内，以在职人员的身份，半脱产，部分时间在职工作，部分时间在校学习的研究生学历教育的一种类型。"
+        }
+      ]
+    };
+  },
+  mounted() {
+    this.getBanner();
+  },
+  methods: {
+    getBanner(url, data) {
+      this.axios
+        .post(
+          url,
+          // " /index.php?v=phone_post",
+          this.qs.stringify(data)
+        )
+        .then(function(response) {
+          this.banner = response;
+          // console.log(response.data.code);
+        })
+        .catch(function(error) {
+          // console.log(error);
+        });
+    }
+  }
+};
+</script>
+<style scoped lang="scss">
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2vw 0;
+  .loaction {
+    margin-left: 2.8vw;
+    width: 2.53vw;
+  }
+  .loaction-word {
+    margin-left: 1vw;
+  }
+  .logo {
+    margin: 0 auto;
+    width: 26.53vw;
+  }
+  .search {
+    margin-right: 4vw;
+    width: 3.33vw;
+  }
+  .admin {
+    margin-right: 2.67vw;
+    width: 2.93vw;
+  }
+}
+.nav-container {
+  display: flex;
+  flex-wrap: wrap;
+  .nav-item {
+    box-sizing: border-box;
+    width: 20vw;
+    height: 20vw;
+    border-bottom: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+  }
+  .nav-item:nth-of-type(5n + 5) {
+    border-right: none;
+  }
+  p {
+    color: #666666;
+  }
+}
+.message-left {
+  padding: 3px 0;
+  margin: 0 5vw;
+  width: 10vw;
+  background: rgba(255, 208, 25, 1);
+  border-radius: 3vw;
+  color: white;
+}
+.message-right {
+  width: 80vw;
+  text-align: left;
+  height: 10vw;
+  overflow: hidden;
+  .cube-slide-item {
+    line-height: 10vw;
+  }
+}
+.big-hr {
+  background: #eeeeee;
+  height: 2vw;
+}
+.h1 {
+  margin-top: 6vw;
+  margin-bottom: 2vw;
+  font-size: 5vw;
+  &::before,
+  &::after {
+    display: inline-block;
+    content: "";
+    width: 10vw;
+    height: 0;
+    margin: 0 10px;
+    border: 1px solid #b5b5b5;
+  }
+}
+.h2 {
+  width: 60vw;
+  padding-bottom: 3vw;
+  margin: 0 auto;
+  line-height: 5vw;
+}
+.guide-item {
+  padding: 3vw 0;
+  img {
+    margin: 0 3vw;
+    width: 18.67vw;
+  }
+  .b {
+    margin-bottom: 5px;
+  }
+  .tj {
+    color: #666666;
+    padding-right: 3vw;
+  }
+}
+.guide-item + .guide-item {
+  border-top: 1px solid #eeeeee;
+}
+</style>
