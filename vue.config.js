@@ -18,7 +18,7 @@ module.exports = {
     // proxy: "http://www.geniuel.com"
   },
   lintOnSave: undefined,
-  publicPath: '/mobile/',
+  publicPath: undefined,
   outputDir: undefined,
   assetsDir: undefined,
   runtimeCompiler: undefined,

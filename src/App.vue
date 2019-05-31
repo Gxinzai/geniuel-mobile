@@ -16,6 +16,25 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   font-size: 3.2vw;
+  background: white;
+}
+.f12 {
+  font-size: 3.2vw;
+}
+.f14 {
+  font-size: 3.73vw;
+}
+.f16 {
+  font-size: 4.26vw;
+}
+.f18 {
+  font-size: 4.8vw;
+}
+.db {
+  display: block;
+}
+.dib {
+  display: inline-block;
 }
 .df {
   display: flex !important;
@@ -50,22 +69,28 @@
   display: flex;
   justify-content: space-between;
 }
+.fdc{
+  flex-direction: column;
+}
 .flexN {
   flex: none;
 }
 .fww {
   flex-wrap: wrap;
 }
+.h0{
+  height: 0 !important;
+}
 .b {
   font-weight: bold;
 }
-.tl{
+.tl {
   text-align: left;
 }
-.tc{
+.tc {
   text-align: center;
 }
-.tj{
+.tj {
   text-align: justify;
 }
 .whiteFont {
@@ -74,10 +99,40 @@
 .grayFont {
   color: #b7b7b7;
 }
+.h1 {
+  margin-top: 6vw;
+  margin-bottom: 2vw;
+  &::before,
+  &::after {
+    display: inline-block;
+    content: "";
+    width: 10vw;
+    height: 0;
+    margin: 0 10px;
+    border: 1px solid #b5b5b5;
+  }
+}
+.h2 {
+  width: 60vw;
+  padding-bottom: 3vw;
+  margin: 0 auto;
+  line-height: 5vw;
+}
 .cube-slide-item {
   img {
     width: 100vw;
   }
+}
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(-50vw);
+  opacity: 0;
 }
 </style>
 <script>

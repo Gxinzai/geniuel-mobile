@@ -1,0 +1,182 @@
+<template>
+  <div class="baoming">
+    <my-header></my-header>
+    <p class="h1 f18 fjac">在线报名</p>
+    <cube-form
+      :model="model"
+      :schema="schema"
+      :immediate-validate="false"
+      :options="options"
+      @validate="validateHandler"
+      @submit="submitHandler"
+    ></cube-form>
+    <my-footer></my-footer>
+  </div>
+</template>
+
+<script>
+import MyHeader from "../components/MyHeader";
+import MyFooter from "../components/MyFooter";
+export default {
+  name: "BaoMing",
+  components: { MyFooter, MyHeader },
+  data() {
+    return {
+      validity: {},
+      valid: undefined,
+      model: {
+        school: "",
+        name: "",
+        sex: "",
+        tel: "",
+        email: "",
+        education: "",
+        location: "",
+        tips: ""
+      },
+      schema: {
+        groups: [
+          {
+            fields: [
+              {
+                type: "input",
+                modelKey: "school",
+                label: "院校",
+                props: {
+                  placeholder: "请输入"
+                },
+                rules: {
+                  required: true
+                },
+                trigger: "blur"
+              },
+              {
+                type: "input",
+                modelKey: "name",
+                label: "姓名",
+                props: {
+                  placeholder: "请输入姓名"
+                },
+                rules: {
+                  required: true
+                },
+                trigger: "blur"
+              },
+              {
+                type: "radio-group",
+                modelKey: "sex",
+                label: "性别",
+                props: {
+                  options: ["男", "女"],
+                  horizontal: true
+                },
+                rules: {
+                  required: true
+                }
+              },
+              {
+                type: "input",
+                modelKey: "tel",
+                label: "手机",
+                props: {
+                  placeholder: "请输入手机",
+                },
+                rules: {
+                  type:'tel',
+                  required: true
+                },
+                trigger: "blur"
+              },
+              {
+                type: "input",
+                modelKey: "email",
+                label: "邮箱",
+                props: {
+                  placeholder: "请输入邮箱",
+                },
+                rules: {
+                  type:'email'
+                },
+                trigger: "blur"
+              },
+              {
+                type: "select",
+                modelKey: "education",
+                label: "学历",
+                props: {
+                  options: ["高中", "大专", "本科", "硕士", "博士"]
+                },
+                rules: {
+                  required: true
+                }
+              },
+              {
+                type: "input",
+                modelKey: "location",
+                label: "所在地",
+                props: {
+                  placeholder: "请输入所在地"
+                },
+                rules: {
+                  required: true
+                },
+                trigger: "blur"
+              },
+              {
+                type: "textarea",
+                modelKey: "tips",
+                label: "备注",
+                props: {
+                  placeholder: "留下您的问题、我们会及时帮您解决.....",
+                  maxlength: 80
+                },
+                // debounce validate
+                // if set to true, the default debounce time will be 200(ms)
+                debounce: 100
+              }
+            ]
+          },
+          {
+            fields: [
+              {
+                type: "submit",
+                label: "我要报名"
+              }
+            ]
+          }
+        ]
+      },
+      options: {
+        scrollToInvalidField: true,
+        layout: "fresh" // classic fresh
+      }
+    };
+  },
+  methods: {
+    submitHandler(e) {
+      e.preventDefault();
+      console.log("submit", e);
+    },
+    validateHandler(result) {
+      this.validity = result.validity;
+      this.valid = result.valid;
+      console.log(
+        "validity",
+        result.validity,
+        result.valid,
+        result.dirty,
+        result.firstInvalidFieldIndex
+      );
+    }
+  }
+};
+</script>
+
+<style>
+.cube-form-group-legend {
+  background: white !important;
+}
+.cube-btn {
+  background: #ffd019;
+}
+</style>

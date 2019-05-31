@@ -61,7 +61,7 @@
           </router-link>
         </div>
         <div class="nav-item fjac">
-          <router-link to="/">
+          <router-link to="/schoollist">
             <img
               src="../assets/index-icon-6.png"
               style="width: 8.67vw;"
@@ -87,7 +87,7 @@
           </router-link>
         </div>
         <div class="nav-item fjac">
-          <router-link to="/">
+          <router-link to="/baoming">
             <img src="../assets/index-icon-9.png" style="width: 8vw;" alt="" />
             <p>报名入口</p>
           </router-link>
@@ -120,7 +120,7 @@
     </div>
     <div class="big-hr"></div>
     <div>
-      <p class="h1 fjac">在职研究生·专题推荐</p>
+      <p class="h1 f18 fjac">在职研究生·专题推荐</p>
       <p class="grayFont h2">
         国内报考 在职研究生、高级课程班项目， 符合条件即可申请博士项目
       </p>
@@ -132,7 +132,7 @@
     </div>
     <div class="big-hr"></div>
     <div>
-      <p class="h1 fjac">国外留学</p>
+      <p class="h1 f18 fjac">国外留学</p>
       <p class="grayFont">
         在职研究生/博士留学项目
       </p>
@@ -157,7 +157,7 @@
     </div>
     <div class="big-hr"></div>
     <div>
-      <p class="h1 fjac">高级研修班</p>
+      <p class="h1 f18 fjac">高级研修班</p>
       <p class="grayFont h2">
         << 点击查看更多
       </p>
@@ -170,7 +170,7 @@
 
     <div class="big-hr"></div>
     <div>
-      <p class="h1 fjac">报考指南</p>
+      <p class="h1 f18 fjac">报考指南</p>
       <p class="grayFont h2">
         << 点击查看更多
       </p>
@@ -178,7 +178,7 @@
         <div class="fac guide-item">
           <img src="../assets/ztad01.png" alt="" />
           <div>
-            <p class="b tl">什么是在职研究生</p>
+            <p class="tl">什么是在职研究生</p>
             <p class="tj">
               {{ guide[0].desc | wordLimit(43) }}
             </p>
@@ -187,7 +187,7 @@
         <div class="fac guide-item">
           <img src="../assets/ztad02.png" alt="" />
           <div>
-            <p class="b tl">什么是在职研究生</p>
+            <p class="tl">什么是在职研究生</p>
             <p class="tj">
               在职研究生是国家计划内，以在职人员的身份，半脱产，部分时间在职工作，部分时间在校学习的...
             </p>
@@ -196,7 +196,7 @@
         <div class="fac guide-item">
           <img src="../assets/ztad03.png" alt="" />
           <div>
-            <p class="b tl">什么是在职研究生</p>
+            <p class="tl">什么是在职研究生</p>
             <p class="tj">
               在职研究生是国家计划内，以在职人员的身份，半脱产，部分时间在职工作，部分时间在校学习的...
             </p>
@@ -206,18 +206,15 @@
     </div>
     <div class="big-hr"></div>
     <my-footer></my-footer>
-    <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 <script>
-import HelloWorld from "@/components/HelloWorld.vue";
 import MyFooter from "../components/MyFooter";
 
 export default {
   name: "home",
   components: {
     MyFooter,
-    HelloWorld
   },
   data() {
     return {
@@ -339,25 +336,8 @@ export default {
   background: #eeeeee;
   height: 2vw;
 }
-.h1 {
-  margin-top: 6vw;
-  margin-bottom: 2vw;
-  font-size: 5vw;
-  &::before,
-  &::after {
-    display: inline-block;
-    content: "";
-    width: 10vw;
-    height: 0;
-    margin: 0 10px;
-    border: 1px solid #b5b5b5;
-  }
-}
-.h2 {
-  width: 60vw;
-  padding-bottom: 3vw;
-  margin: 0 auto;
-  line-height: 5vw;
+.guide-item:nth-of-type(1) {
+  padding-top: 0;
 }
 .guide-item {
   padding: 3vw 0;
@@ -365,7 +345,7 @@ export default {
     margin: 0 3vw;
     width: 18.67vw;
   }
-  .b {
+  .tl {
     margin-bottom: 5px;
   }
   .tj {
