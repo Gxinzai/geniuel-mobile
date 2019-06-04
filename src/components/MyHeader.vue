@@ -3,7 +3,7 @@
     <router-link to="/">
       <img class="logo" src="../assets/logo-noword.png" alt="" />
     </router-link>
-    <div class="breadcrumb grayFont">
+    <div class="breadcrumb ">
       首页 > 院校库
     </div>
     <img class="search" src="../assets/icon-search.png" alt="" />
@@ -30,6 +30,7 @@ export default {
 }
 .breadcrumb{
   margin: 0 auto 0 3vw;
+  color: #666;
 }
 .search {
   margin-right: 4vw;

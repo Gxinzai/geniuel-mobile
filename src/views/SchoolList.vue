@@ -1,95 +1,32 @@
 <template>
   <div class="school-list">
     <my-header></my-header>
+    <p v-show="false">{{ filtersValue }}</p>
     <div class="fjsa fac" style="height: 10.5vw;">
       <school-list-filter
         :modal.sync="modal"
+        :filterValue.sync="filterValueL"
         content="全部院校"
         :filters="filtersL"
       ></school-list-filter>
       <school-list-filter
         :modal.sync="modal"
+        :filterValue.sync="filterValueR"
         content="按地区查找"
         :filters="filtersR"
       ></school-list-filter>
     </div>
-    <div>
-      <div
-        class="fjsb"
-        style="padding:3vw;background: #F0F0F0;border: solid #E4E4E4;border-width: 1px 0"
-      >
-        <span class="grayFont">北京</span>
-        <div
-          class="arrow down"
-          :class="[filterL ? 'up' : 'down']"
-          @click="filterL = !filterL"
-        ></div>
-      </div>
-      <transition name="slide-fade">
-        <div class="fac school-container" v-show="!filterL">
-          <img src="../assets/school-logo.png" class="school-logo" alt="" />
-          <div class="tl">
-            <p class="fac t">
-              <span class="f16">中国社会科学院研究生院</span>
-              <span class="brand brand-211 whiteFont">211</span>
-              <span class="brand brand-985 whiteFont">985</span>
-            </p>
-            <p class="grayFont">159篇简章</p>
-          </div>
-        </div>
-      </transition>
-      <transition name="slide-fade">
-        <div class="fac school-container" v-show="!filterL">
-          <img src="../assets/school-logo.png" class="school-logo" alt="" />
-          <div class="tl">
-            <p class="fac t">
-              <span class="f16">中国社会科学院研究生院</span>
-              <span class="brand brand-211 whiteFont">211</span>
-              <span class="brand brand-985 whiteFont">985</span>
-            </p>
-            <p class="grayFont">159篇简章</p>
-          </div>
-        </div>
-      </transition>
+    <div class="fjac" style="min-height: 80vh;" v-if="loading">
+      <cube-loading class="fjac" :size="40"></cube-loading>
     </div>
-    <div>
-      <div
-        class="fjsb"
-        style="padding:3vw;background: #F0F0F0;border: solid #E4E4E4;border-width: 1px 0"
+    <div style="min-height: 80vh;">
+      <school-list-block
+        v-for="(val, name, index) in school"
+        :key="index"
+        :location="name"
+        :school="val"
       >
-        <span class="grayFont">北京</span>
-        <div
-          class="arrow down"
-          :class="[filterR ? 'up' : 'down']"
-          @click="filterR = !filterR"
-        ></div>
-      </div>
-      <transition name="slide-fade">
-        <div class="fac school-container" v-show="!filterR">
-          <img src="../assets/school-logo.png" class="school-logo" alt="" />
-          <div class="tl">
-            <p class="fac t">
-              <span class="f16">中国社会科学院研究生院</span>
-              <span class="brand brand-211 whiteFont">211</span>
-              <span class="brand brand-985 whiteFont">985</span>
-            </p>
-            <p class="grayFont">159篇简章</p>
-          </div>
-        </div>
-      </transition>
-      <transition name="slide-fade">
-        <div class="fac school-container" v-show="!filterR">
-          <img src="../assets/school-logo.png" class="school-logo" alt="" />
-          <div class="tl">
-            <p class="fac t">
-              <span class="f16">中国社会科学院研究生院</span>
-              <span class="brand brand-211 whiteFont">211</span>
-              <span class="brand brand-985 whiteFont">985</span>
-            </p>
-            <p class="grayFont">159篇简章</p>
-          </div>
-        </div>
-      </transition>
+      </school-list-block>
     </div>
     <my-footer></my-footer>
   </div>
@@ -99,84 +36,129 @@
 import MyHeader from "../components/MyHeader";
 import SchoolListFilter from "../components/SchoolListFilter";
 import MyFooter from "../components/MyFooter";
+import SchoolListBlock from "../components/SchoolListBlock";
 export default {
   name: "SchoolList",
-  components: { MyFooter, SchoolListFilter, MyHeader },
+  components: { SchoolListBlock, MyFooter, SchoolListFilter, MyHeader },
   data() {
     return {
+      loading: true,
+      school: "",
+      schoolCopy: "",
       modal: false,
-      filterL: false,
-      filterR: false,
-      filtersL: [
-        { text: "全部院校", value: 0 },
-        { text: "在职博士", value: 1 },
-        { text: "同等学力", value: 2 },
-        { text: "专业硕士", value: 3 },
-        { text: "高级研修", value: 4 },
-        { text: "中外合办", value: 5 }
-      ],
-      filtersR: [
-        { text: "不限", value: 0 },
-        { text: "北京", value: 1 },
-        { text: "上海", value: 2 },
-        { text: "广州", value: 3 },
-        { text: "河南", value: 4 },
-        { text: "陕西", value: 5 },
-        { text: "陕西", value: 6 },
-        { text: "陕西", value: 7 }
-      ]
+      filterValueL: 0,
+      filterValueR: 0,
+      filtersL: [{ name: "全部院校", value: 0 }],
+      filtersR: [{ name: "不限", value: 0 }]
     };
+  },
+  computed: {
+    filtersValue: function() {
+      let that = this;
+      function filterL(num, x) {
+        return num ? x.project_type.includes(that.filterValueL) : true;
+      }
+      function filterR(num, x) {
+        return num ? x.area_id_1 === that.filterValueR : true;
+      }
+      for (let [key, val] of Object.entries(this.schoolCopy)) {
+        let result = val.filter(
+          x => filterL(this.filterValueL, x) && filterR(this.filterValueR, x)
+        );
+        this.school[key] = result;
+        // console.log(result);
+        if (result.length === 0) {
+          // console.log(key);
+          delete this.school[key]; //删除属性
+        }
+      }
+      return [this.filterValueL, this.filterValueR];
+    }
+  },
+  mounted() {
+    this.getSchool();
+    this.getFilters();
+  },
+  methods: {
+    getSchool() {
+      let jiami = wjz({
+        project_type: 0,
+        area_id: 0,
+        pageno: 1,
+        pagesize: 999
+      });
+      // console.log(jiami);
+      const that = this;
+      this.axios
+        .get("/phalapi/public/", {
+          params: {
+            service: "App.Index.GetSchoolList",
+            key: jiami.key,
+            info: jiami.value
+          }
+        })
+        .then(function(response) {
+          console.log(response.data.info);
+          that.school = response.data.info;
+          that.schoolCopy = { ...that.school };
+          that.loading = false;
+        })
+        .catch(function(error) {
+          // console.log(error);
+        });
+    },
+    getFilters() {
+      const that = this;
+      this.axios
+        .get("/phalapi/public/", {
+          params: {
+            service: "App.Index.GetSchoolScreen"
+          }
+        })
+        .then(function(response) {
+          // console.log('response.data.info',response.data.info)
+          // console.log('response.data.info.project_type',response.data.info.project_type)
+          that.filtersL = [
+            ...that.filtersL,
+            ...response.data.info.project_type[0].setting
+          ];
+          that.filtersR = [
+            ...that.filtersR,
+            ...response.data.info.area_list.setting
+          ];
+        })
+        .catch(function(error) {
+          // console.log(error);
+        });
+    }
+  },
+  watch: {
+    // filterValueL: function(newVal, oldVal) {
+    // if (newVal === 0) {
+    //   this.school = { ...this.schoolCopy };
+    // } else {
+    //   for (let [key, val] of Object.entries(this.schoolCopy)) {
+    //     this.school[key] = val.filter(x => x.project_type.includes(newVal));
+    //   }
+    // }
+    // },
+    // filterValueR: function(newVal, oldVal) {
+    // if (newVal === 0) {
+    //   this.school = { ...this.schoolCopy };
+    // } else {
+    //   for (let [key, val] of Object.entries(this.schoolCopy)) {
+    //     // console.log(val);
+    //     this.school[key] = val.filter(x => x.area_id_1 === newVal);
+    //     // console.log(val);
+    //     // console.log(test);
+    //   }
+    // }
+    // }
   }
 };
 </script>
 
 <style scoped lang="scss">
-.school-list {
-  /*min-height: 100vh;*/
-}
-.arrow {
-  width: 3vw;
-  height: 3vw;
-  border-right: 1px solid #b0b0b0;
-  border-bottom: 1px solid #b0b0b0;
-  transition: all 0.3s;
-}
-.arrow.down {
-  transform: rotate(45deg);
-}
-.arrow.up {
-  transform: rotate(-135deg);
-  /*transform: rotate(225deg);*/
-}
-.school-container {
-  padding: 3vw;
-  .t {
-    margin-bottom: 1vw;
-  }
-}
-.school-container + .school-container {
-  border-top: 1px solid #e4e4e4;
-}
-.school-logo {
-  width: 9.6vw;
-  height: 9.6vw;
-  object-fit: contain;
-  margin-right: 3vw;
-}
-.brand {
-  display: inline-block;
-  width: 7.2vw;
-  line-height: 3.6vw;
-  border-radius: 3px;
-  text-align: center;
-  margin-left: 2vw;
-}
-.brand-211 {
-  background: #4f99dc;
-}
-.brand-985 {
-  background: #e65757;
-}
 .s {
 }
 </style>

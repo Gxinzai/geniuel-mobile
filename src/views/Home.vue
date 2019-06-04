@@ -81,7 +81,7 @@
           </router-link>
         </div>
         <div class="nav-item fjac">
-          <router-link to="/">
+          <router-link to="/jianzhanglist">
             <img src="../assets/index-icon-8.png" style="width:8.8vw;" alt="" />
             <p>简章选择</p>
           </router-link>
@@ -125,9 +125,11 @@
         国内报考 在职研究生、高级课程班项目， 符合条件即可申请博士项目
       </p>
       <div class="fjsa fac" style="padding-bottom: 4vw;">
-        <img src="../assets/sheke-1.png" style="width: 30.27vw" alt="" />
-        <img src="../assets/sheke-2.png" style="width: 30.27vw" alt="" />
-        <img src="../assets/sheke-3.png" style="width: 30.27vw" alt="" />
+        <div v-for="(n,index) in zhuanti" :key="index">
+          <a class="db" :href='n.url'>
+            <img :src="n.thumb" style="width: 30.27vw" alt="">
+          </a>
+        </div>
       </div>
     </div>
     <div class="big-hr"></div>
@@ -162,9 +164,11 @@
         << 点击查看更多
       </p>
       <div class="fjsa fac" style="padding-bottom: 4vw;">
-        <img src="../assets/qingshan-1.png" style="width: 30.67vw" alt="" />
-        <img src="../assets/qingshan-2.png" style="width: 30.67vw" alt="" />
-        <img src="../assets/qingshan-3.png" style="width: 30.67vw" alt="" />
+        <div v-for="(n,index) in yanxiu" :key="index">
+          <a class="db" :href='n.url'>
+            <img :src="n.img" style="width: 30.67vw" alt="">
+          </a>
+        </div>
       </div>
     </div>
 
@@ -175,32 +179,16 @@
         << 点击查看更多
       </p>
       <div style="padding-bottom: 2vw;">
-        <div class="fac guide-item">
-          <img src="../assets/ztad01.png" alt="" />
-          <div>
-            <p class="tl">什么是在职研究生</p>
-            <p class="tj">
-              {{ guide[0].desc | wordLimit(43) }}
-            </p>
-          </div>
-        </div>
-        <div class="fac guide-item">
-          <img src="../assets/ztad02.png" alt="" />
-          <div>
-            <p class="tl">什么是在职研究生</p>
-            <p class="tj">
-              在职研究生是国家计划内，以在职人员的身份，半脱产，部分时间在职工作，部分时间在校学习的...
-            </p>
-          </div>
-        </div>
-        <div class="fac guide-item">
-          <img src="../assets/ztad03.png" alt="" />
-          <div>
-            <p class="tl">什么是在职研究生</p>
-            <p class="tj">
-              在职研究生是国家计划内，以在职人员的身份，半脱产，部分时间在职工作，部分时间在校学习的...
-            </p>
-          </div>
+        <div class=" guide-item" v-for="(n,index) in baokao" :key="index">
+          <a  class="fac" :href="n.url">
+            <img src="../assets/ztad01.png" alt="" />
+            <div>
+              <p class="tl">{{n.title}}</p>
+              <p class="tj">
+                {{ n.remark | wordLimit(43) }}
+              </p>
+            </div>
+          </a>
         </div>
       </div>
     </div>
@@ -214,26 +202,26 @@ import MyFooter from "../components/MyFooter";
 export default {
   name: "home",
   components: {
-    MyFooter,
+    MyFooter
   },
   data() {
     return {
       banner: [
-        {
-          url: "http://www.didichuxing.com/",
-          image:
-            "http://www.geniuel.com/uploadfile/2019/05/28/20190528154759u2qxV7.png"
-        },
-        {
-          url: "http://www.didichuxing.com/",
-          image:
-            "http://www.geniuel.com/uploadfile/2019/05/28/20190528154759u2qxV7.png"
-        },
-        {
-          url: "http://www.didichuxing.com/",
-          image:
-            "http://www.geniuel.com/uploadfile/2019/05/28/20190528154759u2qxV7.png"
-        }
+        // {
+        //   url: "http://www.didichuxing.com/",
+        //   image:
+        //     "http://www.geniuel.com/uploadfile/2019/05/28/20190528154759u2qxV7.png"
+        // },
+        // {
+        //   url: "http://www.didichuxing.com/",
+        //   image:
+        //     "http://www.geniuel.com/uploadfile/2019/05/28/20190528154759u2qxV7.png"
+        // },
+        // {
+        //   url: "http://www.didichuxing.com/",
+        //   image:
+        //     "http://www.geniuel.com/uploadfile/2019/05/28/20190528154759u2qxV7.png"
+        // }
       ],
       message: [
         "刚刚138****8909报考清华大学在职博士课程",
@@ -247,23 +235,31 @@ export default {
           desc:
             "在职研究生是国家计划内，以在职人员的身份，半脱产，部分时间在职工作，部分时间在校学习的研究生学历教育的一种类型。"
         }
-      ]
+      ],
+      yanxiu:'',
+      zhuanti:'',
+      baokao:''
     };
   },
   mounted() {
     this.getBanner();
   },
   methods: {
-    getBanner(url, data) {
+    getBanner() {
+      const that = this;
       this.axios
-        .post(
-          url,
-          // " /index.php?v=phone_post",
-          this.qs.stringify(data)
+        .get(
+          "/phalapi/public/",
+          { params: { service: "App.Index.GetIndexInfo" } }
+          // this.qs.stringify(data)
         )
         .then(function(response) {
-          this.banner = response;
-          // console.log(response.data.code);
+          console.log(response.data);
+          that.banner = response.data.info.banner;
+          that.yanxiu = response.data.info.yanxiu;
+          that.zhuanti = response.data.info.project_list;
+          that.baokao = response.data.info.baokao_list;
+          console.log(that.banner);
         })
         .catch(function(error) {
           // console.log(error);
@@ -331,10 +327,6 @@ export default {
   .cube-slide-item {
     line-height: 10vw;
   }
-}
-.big-hr {
-  background: #eeeeee;
-  height: 2vw;
 }
 .guide-item:nth-of-type(1) {
   padding-top: 0;

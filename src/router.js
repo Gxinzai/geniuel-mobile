@@ -20,10 +20,24 @@ export default new Router({
         import(/* webpackChunkName: "schoollist" */ "./views/SchoolList.vue")
     },
     {
+      path: "/jianzhanglist",
+      name: "jianzhanglist",
+      component: () =>
+        import(
+          /* webpackChunkName: "jianzhanglist" */ "./views/JianZhangList.vue"
+        )
+    },
+    {
       path: "/baoming",
       name: "baoming",
       component: () =>
         import(/* webpackChunkName: "baoming" */ "./views/BaoMing.vue")
+    },
+    {
+      path: "/indexlist",
+      name: "indexlist",
+      component: () =>
+        import(/* webpackChunkName: "indexlist" */ "./views/IndexList.vue")
     },
     {
       path: "/about",

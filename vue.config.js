@@ -15,7 +15,7 @@ module.exports = {
     }
   },
   devServer: {
-    // proxy: "http://www.geniuel.com"
+    proxy: "http://m.geniuel.com"
   },
   lintOnSave: undefined,
   publicPath: undefined,

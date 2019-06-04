@@ -1,22 +1,22 @@
 <template>
   <div>
     <div
-      class="filter grayFont"
+      class="filter fc666"
       :class="[open ? 'open' : 'close']"
       @click="change"
     >
-      {{ result ? result : content }}
+      {{ resultName ? resultName : content }}
     </div>
     <transition name="slide-fade">
       <div class="filter-modal df fdc" v-if="open">
         <div class="container fjsb fww">
           <div
-            class="item f14"
+            class="item f14 fc666"
             v-for="(item, index) in filters"
             :key="index"
             @click="choose(item)"
           >
-            {{ item.text }}
+            {{ item.name.substring(0,4)}}
           </div>
           <div class="item h0"></div>
           <div class="item h0"></div>
@@ -46,7 +46,8 @@ export default {
   data() {
     return {
       open: false,
-      result: ""
+      resultName: "",
+      resultValue:''
     };
   },
   watch: {
@@ -73,8 +74,10 @@ export default {
       }
     },
     choose(x) {
-      this.result = x.text;
+      this.resultName = x.name;
+      this.resultValue = x.value;
       this.$emit("update:modal", false);
+      this.$emit("update:filterValue", x.value);
     }
   }
 };
