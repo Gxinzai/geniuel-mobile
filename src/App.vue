@@ -18,6 +18,10 @@
   font-size: 3.2vw;
   background: white;
 }
+body.noscroll{
+  overflow: hidden;
+  position: relative;
+}
 .f12 {
   font-size: 3.2vw;
 }
@@ -98,6 +102,9 @@
 }
 .grayFont {
   color: #b7b7b7;
+}
+.yellowFont{
+  color: #FFC119;
 }
 .fc333 {
   color: #333;

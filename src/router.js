@@ -34,10 +34,10 @@ export default new Router({
         import(/* webpackChunkName: "baoming" */ "./views/BaoMing.vue")
     },
     {
-      path: "/indexlist",
-      name: "indexlist",
+      path: "/majorlist",
+      name: "majorlist",
       component: () =>
-        import(/* webpackChunkName: "indexlist" */ "./views/IndexList.vue")
+        import(/* webpackChunkName: "majorlist" */ "./views/MajorList.vue")
     },
     {
       path: "/about",

@@ -17,7 +17,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .header {
   box-sizing: border-box;
   height: 10.5vw;
@@ -28,7 +28,7 @@ export default {
   padding: 0 3vw;
   border-right: 1px solid #e4e4e4;
 }
-.breadcrumb{
+.breadcrumb {
   margin: 0 auto 0 3vw;
   color: #666;
 }

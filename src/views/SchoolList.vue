@@ -1,32 +1,35 @@
 <template>
   <div class="school-list">
     <my-header></my-header>
-    <p v-show="false">{{ filtersValue }}</p>
-    <div class="fjsa fac" style="height: 10.5vw;">
-      <school-list-filter
-        :modal.sync="modal"
-        :filterValue.sync="filterValueL"
-        content="全部院校"
-        :filters="filtersL"
-      ></school-list-filter>
-      <school-list-filter
-        :modal.sync="modal"
-        :filterValue.sync="filterValueR"
-        content="按地区查找"
-        :filters="filtersR"
-      ></school-list-filter>
-    </div>
     <div class="fjac" style="min-height: 80vh;" v-if="loading">
       <cube-loading class="fjac" :size="40"></cube-loading>
     </div>
-    <div style="min-height: 80vh;">
-      <school-list-block
-        v-for="(val, name, index) in school"
-        :key="index"
-        :location="name"
-        :school="val"
-      >
-      </school-list-block>
+    <div v-else>
+      <p v-show="false">{{ filtersValue }}</p>
+      <div class="fjsa fac" style="height: 10.5vw;">
+        <school-list-filter
+          :modal.sync="modal"
+          :filterValue.sync="filterValueL"
+          content="全部院校"
+          :filters="filtersL"
+        ></school-list-filter>
+        <school-list-filter
+          :modal.sync="modal"
+          :filterValue.sync="filterValueR"
+          content="按地区查找"
+          :filters="filtersR"
+        ></school-list-filter>
+      </div>
+
+      <div style="min-height: 80vh;">
+        <school-list-block
+          v-for="(val, name, index) in school"
+          :key="index"
+          :location="name"
+          :school="val"
+        >
+        </school-list-block>
+      </div>
     </div>
     <my-footer></my-footer>
   </div>

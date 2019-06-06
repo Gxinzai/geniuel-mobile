@@ -190,7 +190,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .cube-form-group-legend {
   background: white !important;
 }

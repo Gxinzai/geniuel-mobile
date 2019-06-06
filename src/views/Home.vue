@@ -71,7 +71,7 @@
           </router-link>
         </div>
         <div class="nav-item fjac">
-          <router-link to="/">
+          <router-link to="/majorlist">
             <img
               src="../assets/index-icon-7.png"
               style="width: 5.87vw;"
@@ -127,7 +127,7 @@
       <div class="fjsa fac" style="padding-bottom: 4vw;">
         <div v-for="(n,index) in zhuanti" :key="index">
           <a class="db" :href='n.url'>
-            <img :src="n.thumb" style="width: 30.27vw" alt="">
+            <img v-lazy="n.thumb" style="width: 30.27vw" alt="">
           </a>
         </div>
       </div>
@@ -166,7 +166,7 @@
       <div class="fjsa fac" style="padding-bottom: 4vw;">
         <div v-for="(n,index) in yanxiu" :key="index">
           <a class="db" :href='n.url'>
-            <img :src="n.img" style="width: 30.67vw" alt="">
+            <img v-lazy="n.img" style="width: 30.67vw" alt="">
           </a>
         </div>
       </div>
