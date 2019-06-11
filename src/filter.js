@@ -10,3 +10,10 @@ Vue.filter("delete0", function(str) {
     ? str.slice(0, str.length - 2)
     : str;
 });
+Vue.filter("shoukeid", function(arr) {
+  let target = ["面授班", "网络班"];
+  return arr.length === 1 ? target[arr[0]] : "不限";
+});
+Vue.filter("xiangmuid", function(str) {
+  return str === '高端研修' ? '研' : str.slice(0,1);
+});

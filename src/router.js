@@ -16,12 +16,14 @@ export default new Router({
     {
       path: "/schoollist",
       name: "schoollist",
+      meta: { zn: "院校库" },
       component: () =>
         import(/* webpackChunkName: "schoollist" */ "./views/SchoolList.vue")
     },
     {
       path: "/jianzhanglist",
       name: "jianzhanglist",
+      meta: { zn: "简章库" },
       component: () =>
         import(
           /* webpackChunkName: "jianzhanglist" */ "./views/JianZhangList.vue"
@@ -30,21 +32,27 @@ export default new Router({
     {
       path: "/baoming",
       name: "baoming",
+      meta: { zn: "在线报名" },
       component: () =>
         import(/* webpackChunkName: "baoming" */ "./views/BaoMing.vue")
     },
     {
       path: "/majorlist",
       name: "majorlist",
+      meta: { zn: "专业库" },
       component: () =>
         import(/* webpackChunkName: "majorlist" */ "./views/MajorList.vue")
     },
     {
+      path: "/zixunlist",
+      name: "zixunlist",
+      meta: { zn: "专业库" },
+      component: () =>
+        import(/* webpackChunkName: "zixunlist" */ "./views/ZiXunList.vue")
+    },
+    {
       path: "/about",
       name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     }

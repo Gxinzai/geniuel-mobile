@@ -4,7 +4,10 @@
       <img class="logo" src="../assets/logo-noword.png" alt="" />
     </router-link>
     <div class="breadcrumb ">
-      首页 > 院校库
+      <router-link to="/">
+        首页
+      </router-link>
+       > {{$route.meta.zn}}
     </div>
     <img class="search" src="../assets/icon-search.png" alt="" />
     <img class="admin" src="../assets/icon-admin.png" alt="" />
@@ -13,11 +16,15 @@
 
 <script>
 export default {
-  name: "MyHeader"
+  name: "MyHeader",
+  mounted(){
+    // console.log(this.$route.meta.zn)
+    // console.log(this.$router.currentRoute.meta.zn)
+  }
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .header {
   box-sizing: border-box;
   height: 10.5vw;
@@ -31,13 +38,16 @@ export default {
 .breadcrumb {
   margin: 0 auto 0 3vw;
   color: #666;
+  a{
+    color:#666 ;
+  }
 }
 .search {
   margin-right: 4vw;
-  width: 3.33vw;
+  width: 5.07vw;
 }
 .admin {
   margin-right: 2.67vw;
-  width: 2.93vw;
+  width: 4.4vw;
 }
 </style>

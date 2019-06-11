@@ -93,7 +93,7 @@
           </router-link>
         </div>
         <div class="nav-item fjac">
-          <router-link to="/">
+          <router-link to="/zixunlist">
             <img
               src="../assets/index-icon-10.png"
               style="width: 10.13vw;"

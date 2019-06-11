@@ -10,7 +10,7 @@
       </p>
     </div>
     <transition>
-      <div class="df" style="background: #FFD019;position: fixed;bottom: 0;">
+      <div class="df" style="background: #FFD019;position: fixed;bottom: 0;z-index: 1;">
         <div class="fjac footer-item">
           <div>
             <a class="whiteFont db" href="tel:13828172679">
