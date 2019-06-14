@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <!--<div id="nav">-->
-    <!--<router-link to="/">Home</router-link> |-->
-    <!--<router-link to="/about">About</router-link>-->
-    <!--</div>-->
-    <keep-alive>
+    <keep-alive exclude="ZiXun,zzbs,hzbx">
       <router-view />
     </keep-alive>
   </div>
@@ -20,7 +16,7 @@
   font-size: 3.2vw;
   background: white;
 }
-body.noscroll{
+body.noscroll {
   overflow: hidden;
   position: relative;
 }
@@ -35,6 +31,12 @@ body.noscroll{
 }
 .f18 {
   font-size: 4.8vw;
+}
+.lh18 {
+  line-height: 4.8vw;
+}
+.lh24{
+  line-height: 6.4vw;
 }
 .db {
   display: block;
@@ -105,8 +107,8 @@ body.noscroll{
 .grayFont {
   color: #b7b7b7;
 }
-.yellowFont{
-  color: #FFC119;
+.yellowFont {
+  color: #ffc119;
 }
 .fc333 {
   color: #333;
@@ -114,9 +116,10 @@ body.noscroll{
 .fc666 {
   color: #666;
 }
-.bb1{
-  border-bottom: 1px solid #e4e4e4
+.bb1 {
+  border-bottom: 1px solid #e4e4e4;
 }
+.ell{text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
 .h1 {
   margin-top: 6vw;
   margin-bottom: 2vw;
@@ -127,7 +130,7 @@ body.noscroll{
     width: 10vw;
     height: 0;
     margin: 0 10px;
-    border: 1px solid #b5b5b5;
+    border-top: 1px solid #b5b5b5;
   }
 }
 .h2 {
@@ -167,6 +170,22 @@ body.noscroll{
 .slide-fade-right-leave-to {
   transform: translateX(50vw);
   opacity: 0;
+}
+.cube-btn {
+  background: #ffd019 !important;
+}
+.zhengwen {
+  a {
+    color: #666 !important;
+  }
+  p {
+    margin-bottom: 2vw;
+  }
+  img{
+    max-width: 100%;
+    height: auto !important;
+    object-fit: contain;
+  }
 }
 </style>
 <script>

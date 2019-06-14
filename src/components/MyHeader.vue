@@ -7,7 +7,15 @@
       <router-link to="/">
         首页
       </router-link>
-       > {{$route.meta.zn}}
+      <router-link
+        v-for="(e, i) in this.$route.meta.bread"
+        :key="i"
+        :to="e.path"
+      >
+        >{{ e.name }}
+      </router-link>
+      > {{ $route.meta.zn }}
+      <!--<span @click="$router.go(-1)">>go(-1)</span>-->
     </div>
     <img class="search" src="../assets/icon-search.png" alt="" />
     <img class="admin" src="../assets/icon-admin.png" alt="" />
@@ -17,7 +25,10 @@
 <script>
 export default {
   name: "MyHeader",
-  mounted(){
+  data() {
+    return {};
+  },
+  mounted() {
     // console.log(this.$route.meta.zn)
     // console.log(this.$router.currentRoute.meta.zn)
   }
@@ -38,8 +49,8 @@ export default {
 .breadcrumb {
   margin: 0 auto 0 3vw;
   color: #666;
-  a{
-    color:#666 ;
+  a {
+    color: #666;
   }
 }
 .search {

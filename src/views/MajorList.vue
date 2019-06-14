@@ -1,7 +1,7 @@
 <template>
   <div class="majorlist">
     <my-header></my-header>
-    <div class="fjac" style="min-height: 80vh;" v-if="loading">
+    <div class="fjac" style="min-height: calc(100vh - 22.5vw);" v-if="loading">
       <cube-loading class="fjac" :size="40"></cube-loading>
     </div>
     <div v-else>
@@ -50,6 +50,7 @@ export default {
   methods: {
     getMajor() {
       const that = this;
+      console.time(1)
       this.axios
         .get("/phalapi/public/", {
           params: {
@@ -62,13 +63,11 @@ export default {
           that.recommend = response.data.info.recommond;
           that.major = response.data.info.major_list;
           console.log(that.recommend);
+          console.timeEnd(1)
         })
         .catch(function(error) {
           // console.log(error);
         });
-    },
-    closeOthers(x) {
-      x.map(e => (e.checked = false));
     }
   }
 };

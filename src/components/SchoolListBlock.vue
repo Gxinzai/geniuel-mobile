@@ -18,8 +18,9 @@
           :key="index"
           class="fac school-container"
           v-show="!filter"
+          @click="goSchool()"
         >
-          <img v-lazy="item.thumb" class="school-logo" alt="" />
+          <img v-lazy="item.thumb" :key="item.thumb" class="school-logo" alt="" />
           <div class="tl">
             <p class="fac t">
               <span class="f16 fc666">{{ item.title }}</span>
@@ -45,6 +46,10 @@ export default {
     return {
       filter: false
     };
+  },
+  methods:{
+    goSchool(){
+    }
   }
 };
 </script>

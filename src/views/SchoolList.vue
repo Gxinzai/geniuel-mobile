@@ -1,7 +1,7 @@
 <template>
   <div class="school-list">
     <my-header></my-header>
-    <div class="fjac" style="min-height: 80vh;" v-if="loading">
+    <div class="fjac" style="min-height: calc(100vh - 22.5vw);" v-if="loading">
       <cube-loading class="fjac" :size="40"></cube-loading>
     </div>
     <div v-else>
@@ -21,7 +21,7 @@
         ></school-list-filter>
       </div>
 
-      <div style="min-height: 80vh;">
+      <div style="min-height: calc(100vh - 22.5vw) ;">
         <school-list-block
           v-for="(val, name, index) in school"
           :key="index"
@@ -56,6 +56,7 @@ export default {
     };
   },
   computed: {
+    //筛选
     filtersValue: function() {
       let that = this;
       function filterL(num, x) {
@@ -92,6 +93,7 @@ export default {
       });
       // console.log(jiami);
       const that = this;
+      console.time(1)
       this.axios
         .get("/phalapi/public/", {
           params: {
@@ -105,6 +107,8 @@ export default {
           that.school = response.data.info;
           that.schoolCopy = { ...that.school };
           that.loading = false;
+          console.timeEnd(1)
+
         })
         .catch(function(error) {
           // console.log(error);

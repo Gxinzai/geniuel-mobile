@@ -5,7 +5,7 @@
         <router-link class="whiteFont" to="/">电脑版</router-link> &emsp;&emsp;
         <router-link class="whiteFont" to="/">网站地图</router-link>
       </p>
-      <p style="padding-bottom: 4vw;">
+      <p class="copy">
         Copyright © 2018 景牛在线 All Rights Reserved
       </p>
     </div>
@@ -69,7 +69,10 @@ export default {
 
 <style scoped lang="scss">
 .f14 {
-  padding: 4vw 0;
+  line-height:10vw;
+}
+.copy{
+  height:8vw;
 }
 .footer-item {
   box-sizing: border-box;

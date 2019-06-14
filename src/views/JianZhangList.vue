@@ -70,31 +70,38 @@
               v-for="(jz, index) in jianzhang"
               :key="index"
               class="jianzhang-box df"
+              @click="y = $refs.scroll.scroll.y"
             >
-              <div class="img-box">
-                <img v-lazy="jz.school_logo" alt="" />
-                <p>报名中</p>
-              </div>
-              <div>
-                <p class="title f14 fac">
-                  <span
-                    class="xiangmu-span"
-                    :class="['xiangmu-span' + jz.xiangmuidnum]"
-                  >
-                    {{ jz.xiangmuid | xiangmuid }}
-                  </span>
-                  {{ jz.title | wordLimit(18) }}
-                </p>
-                <p class="name tl">
-                  {{ jz.school_name }} / 专业: {{ jz.major_name }}
-                </p>
-                <div class="span-box tl">
-                  <span class="tc">学费{{ jz.xuefeiid | delete0 }}万</span>
-                  <span class="tc">{{ jz.area_id }}</span>
-                  <span class="tc">{{ jz.shoukeid | shoukeid }}</span>
-                  <span class="tc">学制：{{ jz.xuezhiid | delete0 }}年</span>
+              <router-link :to="{ path: '/', query: {} }">
+                <div class="df">
+                  <div class="img-box">
+                    <img v-lazy="jz.school_logo" alt="" />
+                    <p>报名中</p>
+                  </div>
+                  <div>
+                    <p class="title f14 fac">
+                      <span
+                        class="xiangmu-span"
+                        :class="['xiangmu-span' + jz.xiangmuidnum]"
+                      >
+                        {{ jz.xiangmuid | xiangmuid }}
+                      </span>
+                      {{ jz.title | wordLimit(18) }}
+                    </p>
+                    <p class="name tl">
+                      {{ jz.school_name }} / 专业: {{ jz.major_name }}
+                    </p>
+                    <div class="span-box tl">
+                      <span class="tc">学费{{ jz.xuefeiid | delete0 }}万</span>
+                      <span class="tc">{{ jz.area_id }}</span>
+                      <span class="tc">{{ jz.shoukeid | shoukeid }}</span>
+                      <span class="tc"
+                        >学制：{{ jz.xuezhiid | delete0 }}年</span
+                      >
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </router-link>
             </li>
           </ul>
         </cube-scroll>
@@ -283,17 +290,18 @@ export default {
       indexListDataSchool: [],
       indexListDataMajor: [],
       indexListDataLocation: [],
-      xiangmuclassarr: [
-        "博士项目",
-        "同等学力",
+      xiangMuClassArr: [
+        "同等学力硕士",
         "专业学位硕士",
         "合作办学",
-        "高端研修"
+        "高端研修",
+        "博士项目"
       ],
       jianzhang: [],
       updateKey: "",
       order_type: 0,
       pageno: 1,
+      y: 0,
       filterResult: {
         shouke: { name: "", value: 0 },
         leixing: { name: "", value: 0 },
@@ -376,6 +384,9 @@ export default {
     this.getFilters();
     this.getJianZhang();
   },
+  activated() {
+    this.moveY();
+  },
   computed: {
     closeBox() {
       let close = false;
@@ -400,7 +411,14 @@ export default {
     }
   },
   methods: {
+    moveY() {
+      if (this.y) {
+        this.$refs.scroll.scrollTo(0, this.y, 300);
+        this.$refs.scroll.refresh();
+      }
+    },
     reGetJianZhang() {
+      this.y = 0;
       this.$refs.scroll.scrollTo(0, 0, 300);
       this.jianzhang = [];
       this.pageno = 1;
@@ -485,7 +503,7 @@ export default {
         .then(function(response) {
           response.data.info.forEach(v => {
             v.xiangmuidnum = String(
-              that.xiangmuclassarr.findIndex(e => e === v.xiangmuid)
+              that.xiangMuClassArr.findIndex(e => e === v.xiangmuid)
             );
           });
           console.log(response.data.info);
@@ -509,7 +527,6 @@ export default {
 }
 .scroll-list-wrap {
   height: calc(100vh - 32.5vw);
-  /*height: 600px;*/
   /*margin-bottom: 12vw;*/
 }
 .triangle::after {
@@ -581,19 +598,19 @@ export default {
     display: inline-block;
     margin-right: 1vw;
   }
-  .xiangmu-span1 {
+  .xiangmu-span0 {
     background: #4794d9;
   }
-  .xiangmu-span2 {
+  .xiangmu-span1 {
     background: #22ac38;
   }
-  .xiangmu-span3 {
+  .xiangmu-span2 {
     background: #f4a930;
   }
-  .xiangmu-span4 {
+  .xiangmu-span3 {
     background: #d01f36;
   }
-  .xiangmu-span5 {
+  .xiangmu-span4 {
     background: #7f1fd0;
   }
   .span-box {

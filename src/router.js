@@ -46,9 +46,46 @@ export default new Router({
     {
       path: "/zixunlist",
       name: "zixunlist",
-      meta: { zn: "专业库" },
+      meta: { zn: "资讯" },
       component: () =>
         import(/* webpackChunkName: "zixunlist" */ "./views/ZiXunList.vue")
+    },
+    {
+      path: "/zixuncontent",
+      name: "zixun",
+      meta: { zn: "正文", bread: [{ name: "资讯", path: "zixunlist" }] },
+      component: () =>
+        import(/* webpackChunkName: "zixun" */ "./views/ZiXun.vue")
+    },
+    {
+      path: "/zzbs",
+      name: "zzbs",
+      meta: { zn: "博士项目", cid: 1 },
+      component: () => import(/* webpackChunkName: "zzbs" */ "./views/zzbs.vue")
+    },
+    {
+      path: "/zzss",
+      name: "zzss",
+      meta: { zn: "专业硕士", cid: 6 },
+      component: () => import(/* webpackChunkName: "zzbs" */ "./views/zzbs.vue")
+    },
+    {
+      path: "/tdxl",
+      name: "tdxl",
+      meta: { zn: "同等学力", cid: 5 },
+      component: () => import(/* webpackChunkName: "zzbs" */ "./views/zzbs.vue")
+    },
+    {
+      path: "/hzbx",
+      name: "hzbx",
+      meta: { zn: "合作办学", cid: 3 },
+      component: () => import(/* webpackChunkName: "hzbx" */ "./views/hzbx.vue")
+    },
+    {
+      path: "/gdyx",
+      name: "gdyx",
+      meta: { zn: "高端研修", cid: 4 },
+      component: () => import(/* webpackChunkName: "hzbx" */ "./views/hzbx.vue")
     },
     {
       path: "/about",
@@ -56,5 +93,12 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
+    }
+  }
 });

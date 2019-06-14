@@ -195,7 +195,7 @@ export default {
   background: white !important;
 }
 .cube-btn {
-  background: #ffd019;
+  background: #ffd019 !important;
 }
 .tishi {
 }

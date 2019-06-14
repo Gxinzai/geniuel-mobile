@@ -1,120 +1,98 @@
 <template>
   <div class="home">
     <div class="header">
-      <img class="loaction" src="../assets/icon-loaction.png" alt="" />
+      <img class="loaction" src="../assets/icon-loaction.png" />
       <span class="loaction-word grayFont">位置</span>
       <img class="logo" alt="logo" src="../assets/logo.png" />
-      <img class="search" src="../assets/icon-search.png" alt="" />
-      <img class="admin" src="../assets/icon-admin.png" alt="" />
+      <img class="search" src="../assets/icon-search.png" />
+      <img class="admin" src="../assets/icon-admin.png" />
     </div>
     <cube-slide :showDots="false" :data="banner"></cube-slide>
     <div class="nav">
       <div class="nav-container">
         <div class="nav-item fjac">
-          <router-link to="/">
-            <img
-              src="../assets/index-icon-1.png"
-              style="width: 7.33vw;"
-              alt=""
-            />
-            <p>在职博士</p>
+          <router-link to="/zzbs">
+            <img src="../assets/index-icon-1.png" style="width: 7.33vw;" />
+            <p>博士项目</p>
           </router-link>
         </div>
         <div class="nav-item fjac">
-          <router-link to="/">
-            <img
-              src="../assets/index-icon-2.png"
-              style="width: 6.53vw;"
-              alt=""
-            />
-            <p>在职硕士</p>
+          <router-link to="/tdxl">
+            <img src="../assets/index-icon-4.png" style="width: 6.4vw;" />
+            <p>同等学力</p>
           </router-link>
         </div>
         <div class="nav-item fjac">
-          <router-link to="/">
-            <img
-              src="../assets/index-icon-3.png"
-              style="width: 6.8vw;"
-              alt=""
-            />
-            <p>高级研修</p>
+          <router-link to="/zzss">
+            <img src="../assets/index-icon-2.png" style="width: 6.53vw;" />
+            <p>专业硕士</p>
           </router-link>
         </div>
+
         <div class="nav-item fjac">
-          <router-link to="/">
-            <img
-              src="../assets/index-icon-4.png"
-              style="width: 6.4vw;"
-              alt=""
-            />
-            <p>国外留学</p>
-          </router-link>
-        </div>
-        <div class="nav-item fjac">
-          <router-link to="/">
-            <img
-              src="../assets/index-icon-5.png"
-              style="width: 6.8vw;"
-              alt=""
-            />
+          <router-link to="/hzbx">
+            <img src="../assets/index-icon-5.png" style="width: 8.67vw;" />
             <p>合作办学</p>
           </router-link>
         </div>
         <div class="nav-item fjac">
+          <router-link to="/gdyx">
+            <img src="../assets/index-icon-3.png" style="width: 6.8vw;" />
+            <p>高端研修</p>
+          </router-link>
+        </div>
+
+        <div class="nav-item fjac">
           <router-link to="/schoollist">
-            <img
-              src="../assets/index-icon-6.png"
-              style="width: 8.67vw;"
-              alt=""
-            />
+            <img src="../assets/index-icon-6.png" style="width: 7.2vw;" />
             <p>院校选择</p>
           </router-link>
         </div>
         <div class="nav-item fjac">
           <router-link to="/majorlist">
-            <img
-              src="../assets/index-icon-7.png"
-              style="width: 5.87vw;"
-              alt=""
-            />
+            <img src="../assets/index-icon-7.png" style="width: 5.87vw;" />
             <p>专业选择</p>
           </router-link>
         </div>
         <div class="nav-item fjac">
           <router-link to="/jianzhanglist">
-            <img src="../assets/index-icon-8.png" style="width:8.8vw;" alt="" />
+            <img src="../assets/index-icon-8.png" style="width:8.8vw;" />
             <p>简章选择</p>
           </router-link>
         </div>
         <div class="nav-item fjac">
           <router-link to="/baoming">
-            <img src="../assets/index-icon-9.png" style="width: 8vw;" alt="" />
+            <img src="../assets/index-icon-9.png" style="width: 8vw;" />
             <p>报名入口</p>
           </router-link>
         </div>
         <div class="nav-item fjac">
           <router-link to="/zixunlist">
-            <img
-              src="../assets/index-icon-10.png"
-              style="width: 10.13vw;"
-              alt=""
-            />
+            <img src="../assets/index-icon-10.png" style="width: 10.13vw;" />
             <p>资讯</p>
           </router-link>
         </div>
       </div>
     </div>
-    <div class="message-container fac">
+    <div class="message-container fac" @touchmove.prevent @mousemove.prevent>
       <div class="message-left">消息</div>
       <cube-slide
         class="message-right"
         ref="slide"
         :data="message"
         :showDots="false"
+        :loop="true"
         direction="vertical"
+        @touchmove.prevent
+        @mousemove.prevent
       >
-        <cube-slide-item v-for="(item, index) in message" :key="index">
-          <p>{{ item }}</p>
+        <cube-slide-item
+          v-for="(item, index) in message"
+          :key="index"
+          @touchmove.prevent
+          @mousemove.prevent
+        >
+          <p @touchmove.prevent>{{ item }}</p>
         </cube-slide-item>
       </cube-slide>
     </div>
@@ -125,9 +103,9 @@
         国内报考 在职研究生、高级课程班项目， 符合条件即可申请博士项目
       </p>
       <div class="fjsa fac" style="padding-bottom: 4vw;">
-        <div v-for="(n,index) in zhuanti" :key="index">
-          <a class="db" :href='n.url'>
-            <img v-lazy="n.thumb" style="width: 30.27vw" alt="">
+        <div v-for="(n, index) in zhuanti" :key="index">
+          <a class="db" :href="n.url">
+            <img v-lazy="n.thumb" style="width: 30.27vw" />
           </a>
         </div>
       </div>
@@ -147,26 +125,21 @@
         <img
           src="../assets/菲律宾德拉萨-阿拉内塔大学.png"
           style="width: 30.67vw"
-          alt=""
         />
-        <img
-          src="../assets/菲律宾法蒂玛大学.png"
-          style="width: 30.67vw"
-          alt=""
-        />
-        <img src="../assets/菲律宾国父大学.png" style="width: 30.67vw" alt="" />
+        <img src="../assets/菲律宾法蒂玛大学.png" style="width: 30.67vw" />
+        <img src="../assets/菲律宾国父大学.png" style="width: 30.67vw" />
       </div>
     </div>
     <div class="big-hr"></div>
     <div>
-      <p class="h1 f18 fjac">高级研修班</p>
+      <p class="h1 f18 fjac">高端研修班</p>
       <p class="grayFont h2">
         << 点击查看更多
       </p>
       <div class="fjsa fac" style="padding-bottom: 4vw;">
-        <div v-for="(n,index) in yanxiu" :key="index">
-          <a class="db" :href='n.url'>
-            <img v-lazy="n.img" style="width: 30.67vw" alt="">
+        <div v-for="(n, index) in yanxiu" :key="index">
+          <a class="db" :href="n.url">
+            <img v-lazy="n.img" style="width: 30.67vw" />
           </a>
         </div>
       </div>
@@ -179,11 +152,11 @@
         << 点击查看更多
       </p>
       <div style="padding-bottom: 2vw;">
-        <div class=" guide-item" v-for="(n,index) in baokao" :key="index">
-          <a  class="fac" :href="n.url">
-            <img src="../assets/ztad01.png" alt="" />
+        <div class=" guide-item" v-for="(n, index) in baokao" :key="index">
+          <a class="fac" :href="n.url">
+            <img src="../assets/ztad01.png" />
             <div>
-              <p class="tl">{{n.title}}</p>
+              <p class="tl">{{ n.title }}</p>
               <p class="tj">
                 {{ n.remark | wordLimit(43) }}
               </p>
@@ -236,9 +209,9 @@ export default {
             "在职研究生是国家计划内，以在职人员的身份，半脱产，部分时间在职工作，部分时间在校学习的研究生学历教育的一种类型。"
         }
       ],
-      yanxiu:'',
-      zhuanti:'',
-      baokao:''
+      yanxiu: "",
+      zhuanti: "",
+      baokao: ""
     };
   },
   mounted() {
@@ -303,6 +276,9 @@ export default {
     height: 20vw;
     border-bottom: 1px solid #e5e5e5;
     border-right: 1px solid #e5e5e5;
+    img {
+      margin-bottom: 1vw;
+    }
   }
   .nav-item:nth-of-type(5n + 5) {
     border-right: none;

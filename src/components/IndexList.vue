@@ -18,7 +18,7 @@ export default {
   name: "IndexList",
   data() {
     return {
-      title: "按专业分类"
+      title: "全部分类"
     };
   },
   props: {
