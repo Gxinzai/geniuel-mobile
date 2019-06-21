@@ -11,9 +11,11 @@ Vue.filter("delete0", function(str) {
     : str;
 });
 Vue.filter("shoukeid", function(arr) {
-  let target = ["面授班", "网络班"];
-  return arr.length === 1 ? target[arr[0]] : "不限";
+  let target = ["", "面授班", "网络班"];
+  if (Array.isArray(arr)) {
+    return arr.length === 1 ? target[arr[0]] : "不限";
+  }
 });
 Vue.filter("xiangmuid", function(str) {
-  return str === '高端研修' ? '研' : str.slice(0,1);
+  return str === "高端研修" ? "研" : str.slice(0, 1);
 });

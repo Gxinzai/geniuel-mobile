@@ -1,6 +1,28 @@
 <template>
   <div class="baoming">
-    <my-header></my-header>
+    <div class="header fac">
+      <router-link to="">
+        <img class="logo" src="../assets/logo-noword.png" alt="" />
+      </router-link>
+      <div class="breadcrumb ">
+        <router-link to="">
+          首页
+        </router-link>
+        <router-link
+          v-for="(e, i) in this.$route.meta.bread"
+          :key="i"
+          :to="e.path"
+        >
+          >{{ e.name }}
+        </router-link>
+        > {{ $route.meta.zn }}
+        <!--<span @click="$router.go(-1)">>go(-1)</span>-->
+      </div>
+      <router-link to="">
+        <img class="search" src="../assets/icon-search.png" alt="" />
+      </router-link>
+      <img class="admin" src="../assets/icon-admin.png" alt="" />
+    </div>
     <p class="h1 f18 fjac">在线报名</p>
     <cube-form
       :model="model"
@@ -33,24 +55,23 @@
 </template>
 
 <script>
-import MyHeader from "../components/MyHeader";
 import MyFooter from "../components/MyFooter";
 export default {
   name: "BaoMing",
-  components: { MyFooter, MyHeader },
+  components: { MyFooter },
   data() {
     return {
       validity: {},
       valid: undefined,
       model: {
-        school: "",
-        name: "",
+        school: this.$route.query.jz,
+        username: "",
         sex: "",
-        tel: "",
+        phone: "",
         email: "",
-        education: "",
-        location: "",
-        tips: ""
+        xueli: "",
+        area: "",
+        beizhu: ""
       },
       schema: {
         groups: [
@@ -70,7 +91,7 @@ export default {
               },
               {
                 type: "input",
-                modelKey: "name",
+                modelKey: "username",
                 label: "姓名",
                 props: {
                   placeholder: "请输入姓名"
@@ -94,7 +115,7 @@ export default {
               },
               {
                 type: "input",
-                modelKey: "tel",
+                modelKey: "phone",
                 label: "手机",
                 props: {
                   placeholder: "请输入手机"
@@ -119,7 +140,7 @@ export default {
               },
               {
                 type: "select",
-                modelKey: "education",
+                modelKey: "xueli",
                 label: "学历",
                 props: {
                   options: ["高中", "大专", "本科", "硕士", "博士"]
@@ -130,7 +151,7 @@ export default {
               },
               {
                 type: "input",
-                modelKey: "location",
+                modelKey: "area",
                 label: "所在地",
                 props: {
                   placeholder: "请输入所在地"
@@ -142,7 +163,7 @@ export default {
               },
               {
                 type: "textarea",
-                modelKey: "tips",
+                modelKey: "beizhu",
                 label: "备注",
                 props: {
                   placeholder: "留下您的问题、我们会及时帮您解决.....",
@@ -173,24 +194,76 @@ export default {
   methods: {
     submitHandler(e) {
       e.preventDefault();
-      console.log("submit", e);
+      // console.log("submit", e);
+      // console.log("rsult", this.model);
+      const that = this;
+      const {school,username,sex,phone,email,xueli,area,beizhu} = that.model
+      let jiami = this.jiami({school,username,sex,phone,email,xueli,area,beizhu});
+      // console.log(jiami)
+      this.axios
+        .post(
+          "/phalapi/public/?service=App.Index.PostBaoMing",
+          this.qs.stringify({
+            key: jiami.key,
+            info: jiami.value
+          })
+        )
+        .then(function(response) {
+          // console.log(response.data.msg);
+          that.toast = that.$createToast({
+            txt: response.data.msg,
+            type: 'txt'
+          })
+          that.toast.show()
+        })
+        .catch(function(error) {
+          // console.log(error);
+        });
     },
     validateHandler(result) {
       this.validity = result.validity;
       this.valid = result.valid;
-      console.log(
-        "validity",
-        result.validity,
-        result.valid,
-        result.dirty,
-        result.firstInvalidFieldIndex
-      );
+      // console.log(
+      //   "validity",
+      //   result.validity,
+      //   result.valid,
+      //   result.dirty,
+      //   result.firstInvalidFieldIndex
+      // );
     }
   }
 };
 </script>
 
 <style scoped>
+.header {
+  box-sizing: border-box;
+  height: 10.5vw;
+  border-bottom: 1px solid #e4e4e4;
+}
+.h1{
+  margin-bottom: 6vw;
+}
+.logo {
+  width: 7.33vw;
+  padding: 0 3vw;
+  border-right: 1px solid #e4e4e4;
+}
+.breadcrumb {
+  margin: 0 auto 0 3vw;
+  color: #666;
+  a {
+    color: #666;
+  }
+}
+.search {
+  margin-right: 4vw;
+  width: 5.07vw;
+}
+.admin {
+  margin-right: 2.67vw;
+  width: 4.4vw;
+}
 .cube-form-group-legend {
   background: white !important;
 }

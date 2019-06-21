@@ -1,5 +1,5 @@
-<template :key="$route.query.id">
-  <div :key="$route.query.id">
+<template>
+  <div>
     <my-header></my-header>
     <div class="content my-body tl">
       <p class="f16 title lh18">{{ zx_info.title }}</p>

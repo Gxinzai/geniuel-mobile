@@ -135,7 +135,7 @@ export default {
           }
         })
         .then(function(response) {
-          // console.log(response.data.info);
+          console.log(response.data.info);
           that.filters = response.data.info;
         })
         .catch(function(error) {

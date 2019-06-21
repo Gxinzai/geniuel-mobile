@@ -1,19 +1,23 @@
 <template>
   <div class="footer">
     <div style="background: black;color: white;margin-bottom: 12vw;">
-      <p class="f14">
-        <router-link class="whiteFont" to="/">电脑版</router-link> &emsp;&emsp;
-        <router-link class="whiteFont" to="/">网站地图</router-link>
-      </p>
+      <div class="f14 fjac">
+        <a class="whiteFont dib" href="http://www.geniuel.com/">电脑版</a>
+        <!--&emsp;&emsp;-->
+        <!--<router-link class="whiteFont" to="">网站地图</router-link>-->
+      </div>
       <p class="copy">
         Copyright © 2018 景牛在线 All Rights Reserved
       </p>
     </div>
     <transition>
-      <div class="df" style="background: #FFD019;position: fixed;bottom: 0;z-index: 1;">
+      <div
+        class="df"
+        style="background: #FFD019;position: fixed;bottom: 0;z-index: 1;"
+      >
         <div class="fjac footer-item">
           <div>
-            <a class="whiteFont db" href="tel:13828172679">
+            <a class="whiteFont db" href="tel:4007188018">
               <img
                 src="../assets/icon-tel.png"
                 style="width: 4.375vw;"
@@ -25,12 +29,17 @@
         </div>
         <div class="fjac footer-item">
           <div>
-            <img
-              src="../assets/icon-consult.png"
-              style="width: 4.375vw;"
-              alt=""
-            />
-            <p>在线咨询</p>
+            <a
+              class="dib"
+              href="https://ww16.53kf.com/webCompany.php?kf_sign=TAxNzMTU0NUwOTEwMzg2NzA1MTA0MDE1&arg=10190463&style=3"
+            >
+              <img
+                src="../assets/icon-consult.png"
+                style="width: 4.375vw;"
+                alt=""
+              />
+              <p>在线咨询</p>
+            </a>
           </div>
         </div>
         <div class="fjac footer-item">
@@ -69,10 +78,10 @@ export default {
 
 <style scoped lang="scss">
 .f14 {
-  line-height:10vw;
+  line-height: 10vw;
 }
-.copy{
-  height:8vw;
+.copy {
+  height: 8vw;
 }
 .footer-item {
   box-sizing: border-box;
@@ -81,6 +90,9 @@ export default {
   color: white;
   p {
     margin-top: 3px;
+  }
+  a {
+    color: white;
   }
 }
 .footer-item + .footer-item {

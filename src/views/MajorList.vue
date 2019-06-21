@@ -7,12 +7,16 @@
     <div v-else>
       <p class="h1 f18 fjac">热门专业</p>
       <div class="recommend fjsb fww" style="padding: 3vw;">
-        <div
-          v-for="(item, index) in recommend"
-          :key="index"
-          class="recommend-item"
-        >
-          {{ item.title }}
+        <div v-for="(item, index) in recommend" :key="index">
+          <router-link
+            class="dib recommend-item"
+            :to="{
+              path: 'jianzhanglist',
+              query: { majorid: item.id, majorname: item.title }
+            }"
+          >
+            {{ item.title }}
+          </router-link>
         </div>
       </div>
       <div class="big-hr"></div>
@@ -50,7 +54,7 @@ export default {
   methods: {
     getMajor() {
       const that = this;
-      console.time(1)
+      console.time(1);
       this.axios
         .get("/phalapi/public/", {
           params: {
@@ -63,7 +67,7 @@ export default {
           that.recommend = response.data.info.recommond;
           that.major = response.data.info.major_list;
           console.log(that.recommend);
-          console.timeEnd(1)
+          console.timeEnd(1);
         })
         .catch(function(error) {
           // console.log(error);

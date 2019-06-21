@@ -30,6 +30,13 @@ export default new Router({
         )
     },
     {
+      path: "/jianzhang",
+      name: "jianzhang",
+      meta: { zn: "正文", bread: [{ name: "简章", path: "jianzhanglist" }] },
+      component: () =>
+        import(/* webpackChunkName: "jianzhang" */ "./views/jianZhang.vue")
+    },
+    {
       path: "/baoming",
       name: "baoming",
       meta: { zn: "在线报名" },
@@ -60,32 +67,49 @@ export default new Router({
     {
       path: "/zzbs",
       name: "zzbs",
-      meta: { zn: "博士项目", cid: 1 },
+      meta: { zn: "博士项目", cid: 1 ,value:3579},
       component: () => import(/* webpackChunkName: "zzbs" */ "./views/zzbs.vue")
     },
     {
       path: "/zzss",
       name: "zzss",
-      meta: { zn: "专业硕士", cid: 6 },
+      meta: { zn: "专业硕士", cid: 6 ,value: 3581 },
       component: () => import(/* webpackChunkName: "zzbs" */ "./views/zzbs.vue")
     },
     {
       path: "/tdxl",
       name: "tdxl",
-      meta: { zn: "同等学力", cid: 5 },
+      meta: { zn: "同等学力", cid: 5 ,value: 3580},
       component: () => import(/* webpackChunkName: "zzbs" */ "./views/zzbs.vue")
     },
     {
       path: "/hzbx",
       name: "hzbx",
-      meta: { zn: "合作办学", cid: 3 },
+      meta: { zn: "合作办学", cid: 3 ,value: 3582},
       component: () => import(/* webpackChunkName: "hzbx" */ "./views/hzbx.vue")
     },
     {
       path: "/gdyx",
       name: "gdyx",
-      meta: { zn: "高端研修", cid: 4 },
+      meta: { zn: "高端研修", cid: 4, value: 3583 },
       component: () => import(/* webpackChunkName: "hzbx" */ "./views/hzbx.vue")
+    },
+    {
+      path: "/search",
+      name: "search",
+      meta: { zn: "搜索" },
+      component: () => import(/* webpackChunkName: "search" */ "./views/Search.vue")
+    },
+    {
+      path: "/login",
+      name: "login",
+      meta: { zn: "搜索" },
+      component: () => import(/* webpackChunkName: "login" */ "./views/LogIn.vue")
+    },
+    {
+      path: "/demo",
+      name: "demo",
+      component: () => import(/* webpackChunkName: "search" */ "./views/Demo.vue")
     },
     {
       path: "/about",

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive exclude="ZiXun,zzbs,hzbx">
+    <keep-alive exclude="ZiXun,hzbx,jianZhang,BaoMing">
       <router-view />
     </keep-alive>
   </div>
@@ -35,8 +35,14 @@ body.noscroll {
 .lh18 {
   line-height: 4.8vw;
 }
-.lh24{
+.lh24 {
   line-height: 6.4vw;
+}
+.por{
+  position: relative;
+}
+.poa{
+  position: absolute;
 }
 .db {
   display: block;
@@ -110,16 +116,29 @@ body.noscroll {
 .yellowFont {
   color: #ffc119;
 }
+.red {
+  color: #dd0000 !important;
+}
 .fc333 {
   color: #333;
 }
 .fc666 {
   color: #666;
 }
+.fc999 {
+  color: #999;
+}
+.pct50 {
+  width: 50%;
+}
 .bb1 {
   border-bottom: 1px solid #e4e4e4;
 }
-.ell{text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.ell {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 .h1 {
   margin-top: 6vw;
   margin-bottom: 2vw;
@@ -142,6 +161,12 @@ body.noscroll {
 .big-hr {
   background: #eeeeee;
   height: 2vw;
+}
+.p3vw {
+  padding: 0 3vw;
+}
+.mt3vw {
+  margin-top: 3vw;
 }
 .cube-slide-item {
   img {
@@ -174,6 +199,9 @@ body.noscroll {
 .cube-btn {
   background: #ffd019 !important;
 }
+.cube-form-group-legend {
+  display: none;
+}
 .zhengwen {
   a {
     color: #666 !important;
@@ -181,10 +209,27 @@ body.noscroll {
   p {
     margin-bottom: 2vw;
   }
-  img{
+  img {
     max-width: 100%;
     height: auto !important;
     object-fit: contain;
+  }
+  .table-responsive{
+    width: 100% !important;
+    height: auto !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  strong{
+    display: block;
+    color: rgba(255, 12, 12, 1);
+  }
+  table,table tr th, table tr td { border:1px solid #eee; }/*设置边框*/
+  table{
+    td{
+      /*white-space: nowrap;*/
+    }
   }
 }
 </style>

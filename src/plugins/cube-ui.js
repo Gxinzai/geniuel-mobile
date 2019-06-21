@@ -9,80 +9,80 @@ import {
   // basic
   Button,
   Loading,
-  Tip,
-  Toolbar,
-  TabBar,
-  TabPanels,
+  // Tip,
+  // Toolbar,
+  // TabBar,
+  // TabPanels,
   // form
-  Checkbox,
-  CheckboxGroup,
-  Checker,
+  // Checkbox,
+  // CheckboxGroup,
+  // Checker,
   Radio,
   RadioGroup,
   Input,
   Textarea,
   Select,
-  Switch,
-  Rate,
+  // Switch,
+  // Rate,
   Validator,
-  Upload,
+  // Upload,
   Form,
   // popup
-  Popup,
+  // Popup,
   Toast,
-  Picker,
-  CascadePicker,
-  DatePicker,
-  TimePicker,
-  SegmentPicker,
-  Dialog,
-  ActionSheet,
-  Drawer,
-  ImagePreview,
+  // Picker,
+  // CascadePicker,
+  // DatePicker,
+  // TimePicker,
+  // SegmentPicker,
+  // Dialog,
+  // ActionSheet,
+  // Drawer,
+  // ImagePreview,
   // scroll
   Scroll,
   Slide,
   IndexList,
   Swipe,
-  Sticky,
+  // Sticky,
   ScrollNav,
   ScrollNavBar
 } from 'cube-ui'
 
 Vue.use(Button)
 Vue.use(Loading)
-Vue.use(Tip)
-Vue.use(Toolbar)
-Vue.use(TabBar)
-Vue.use(TabPanels)
-Vue.use(Checkbox)
-Vue.use(CheckboxGroup)
-Vue.use(Checker)
+// Vue.use(Tip)
+// Vue.use(Toolbar)
+// Vue.use(TabBar)
+// Vue.use(TabPanels)
+// Vue.use(Checkbox)
+// Vue.use(CheckboxGroup)
+// Vue.use(Checker)
 Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(Input)
 Vue.use(Textarea)
 Vue.use(Select)
-Vue.use(Switch)
-Vue.use(Rate)
+// Vue.use(Switch)
+// Vue.use(Rate)
 Vue.use(Validator)
-Vue.use(Upload)
+// Vue.use(Upload)
 Vue.use(Form)
-Vue.use(Popup)
+// Vue.use(Popup)
 Vue.use(Toast)
-Vue.use(Picker)
-Vue.use(CascadePicker)
-Vue.use(DatePicker)
-Vue.use(TimePicker)
-Vue.use(SegmentPicker)
-Vue.use(Dialog)
-Vue.use(ActionSheet)
-Vue.use(Drawer)
-Vue.use(ImagePreview)
+// Vue.use(Picker)
+// Vue.use(CascadePicker)
+// Vue.use(DatePicker)
+// Vue.use(TimePicker)
+// Vue.use(SegmentPicker)
+// Vue.use(Dialog)
+// Vue.use(ActionSheet)
+// Vue.use(Drawer)
+// Vue.use(ImagePreview)
 Vue.use(Scroll)
 Vue.use(Slide)
 Vue.use(IndexList)
-Vue.use(Swipe)
-Vue.use(Sticky)
+// Vue.use(Swipe)
+// Vue.use(Sticky)
 Vue.use(ScrollNav)
 Vue.use(ScrollNavBar)

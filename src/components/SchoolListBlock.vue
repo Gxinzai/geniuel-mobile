@@ -16,19 +16,36 @@
         <div
           v-for="(item, index) in school"
           :key="index"
-          class="fac school-container"
           v-show="!filter"
           @click="goSchool()"
         >
-          <img v-lazy="item.thumb" :key="item.thumb" class="school-logo" alt="" />
-          <div class="tl">
-            <p class="fac t">
-              <span class="f16 fc666">{{ item.title }}</span>
-              <span class="brand brand-211 whiteFont" v-if="item.school_attribute.includes('211')">211</span>
-              <span class="brand brand-985 whiteFont" v-if="item.school_attribute.includes('985')">985</span>
-            </p>
-            <p class="grayFont">{{ item.jz_num }}篇简章</p>
-          </div>
+          <router-link
+            class="dib fac school-container"
+            :to="{ path: 'jianzhanglist', query: { schoolid: item.id , schoolname : item.title } }"
+          >
+            <img
+              v-lazy="item.thumb"
+              :key="item.thumb"
+              class="school-logo"
+              alt=""
+            />
+            <div class="tl">
+              <p class="fac t">
+                <span class="f16 fc666">{{ item.title }}</span>
+                <span
+                  class="brand brand-211 whiteFont"
+                  v-if="item.school_attribute.includes('211')"
+                  >211</span
+                >
+                <span
+                  class="brand brand-985 whiteFont"
+                  v-if="item.school_attribute.includes('985')"
+                  >985</span
+                >
+              </p>
+              <p class="grayFont">{{ item.jz_num }}篇简章</p>
+            </div>
+          </router-link>
         </div>
       </transition-group>
     </div>
@@ -47,9 +64,8 @@ export default {
       filter: false
     };
   },
-  methods:{
-    goSchool(){
-    }
+  methods: {
+    goSchool() {}
   }
 };
 </script>

@@ -1,11 +1,12 @@
 <template>
   <div>
     <my-header></my-header>
+    {{current}}
     <div class="fjac" style="min-height: calc(100vh - 22.5vw);" v-if="loading">
       <cube-loading class="fjac" :size="40"></cube-loading>
     </div>
     <div class="zzbs" style="height: calc(100vh - 22.5vw);" v-else>
-      <cube-scroll-nav @change="changeHandler" ref="scroll">
+      <cube-scroll-nav @change="changeHandler"   :current="current" ref="scroll">
         <cube-scroll-nav-panel :label="liucheng[0]">
           <div class="fjac" style="height: 15vh;">img</div>
           <div class="h1 f18 fjac">什么是{{ $route.meta.zn }}</div>
@@ -49,13 +50,16 @@
           <div class="big-hr mt3vw"></div>
           <div class="h1 f18 fjac">论文指导</div>
           <ul class="p3vw lunwen">
-            <li
-              class="tl fc666 ell"
-              v-for="(e, i) in project_info.lunwen_list"
-              :key="i"
-            >
-              {{ e.title }}
-              <!--id:{{e.id}}-->
+            <li class="fac" v-for="(e, i) in project_info.lunwen_list" :key="i">
+              <router-link
+                class="dib tl fc666 ell"
+                :to="{
+                  path: '/zixuncontent',
+                  query: { id: e.id, type: 'kaoyan' }
+                }"
+              >
+                {{ e.title }}
+              </router-link>
             </li>
           </ul>
           <div class="big-hr mt3vw"></div>
@@ -96,16 +100,25 @@
         <cube-scroll-nav-panel :label="liucheng[5]">
           <div class="h1 f18 fjac">推荐院校</div>
           <ul class="p3vw school fjsb fww">
-            <li
-              class="tl fc666 df fac"
-              v-for="(e, i) in project_info.hot_school"
-              :key="i"
-            >
-              <img class="thumb" :src="e.thumb" alt="" />
-              <div class="font-box f14">
-                <p class="t fc333 ell ">{{ e.title }}</p>
-                <p class="grayFont ">{{ $route.meta.zn }}</p>
-              </div>
+            <li class="" v-for="(e, i) in project_info.hot_school" :key="i">
+              <router-link
+                class="dib tl fc666 df fac"
+                :to="{
+                  path: 'jianzhanglist',
+                  query: {
+                    schoolid: e.id,
+                    schoolname: e.title,
+                    leixingid: $route.meta.value,
+                    leixingname: $route.meta.zn
+                  }
+                }"
+              >
+                <img class="thumb" :src="e.thumb" alt="" />
+                <div class="font-box f14">
+                  <p class="t fc333 ell ">{{ e.title }}</p>
+                  <p class="grayFont ">{{ $route.meta.zn }}</p>
+                </div>
+              </router-link>
             </li>
           </ul>
           <div class="p3vw">
@@ -118,13 +131,22 @@
         <cube-scroll-nav-panel :label="liucheng[6]">
           <div class="h1 f18 fjac">推荐专业</div>
           <ul class="p3vw major fjsb fww">
-            <li
-              class="tl fc666 "
-              v-for="(e, i) in project_info.hot_zy"
-              :key="i"
-            >
-              <p class="t fc333 ell f14">{{ e.title }}</p>
-              <p class="grayFont f14">{{ $route.meta.zn }}</p>
+            <li class="" v-for="(e, i) in project_info.hot_zy" :key="i">
+              <router-link
+                class="db tl fc666 "
+                :to="{
+                  path: 'jianzhanglist',
+                  query: {
+                    majorid: e.id,
+                    majorname: e.title,
+                    leixingid: $route.meta.value,
+                    leixingname: $route.meta.zn
+                  }
+                }"
+              >
+                <p class="t fc333 ell f14">{{ e.title }}</p>
+                <p class="grayFont f14">{{ $route.meta.zn }}</p>
+              </router-link>
             </li>
           </ul>
           <div class="p3vw">
@@ -137,12 +159,13 @@
         <cube-scroll-nav-panel :label="liucheng[7]">
           <div class="h1 f18 fjac">推荐简章</div>
           <ul class="p3vw lunwen">
-            <li
-              class="tl fc666 ell"
-              v-for="(e, i) in project_info.hot_jz"
-              :key="i"
-            >
-              {{ e.title }}
+            <li class="fac" v-for="(e, i) in project_info.hot_jz" :key="i">
+              <router-link
+                class="dib tl fc666 ell"
+                :to="{ path: '/jianzhang', query: { id: e.id } }"
+              >
+                {{ e.title }}
+              </router-link>
             </li>
           </ul>
           <div class="p3vw mt3vw">
@@ -166,6 +189,8 @@ export default {
   components: { MyFooter, MyHeader },
   data() {
     return {
+      y:0,
+      current:'',
       project_info: "",
       loading: true,
       liucheng: [
@@ -182,14 +207,26 @@ export default {
   },
   mounted() {
     this.getInfo();
+    // this.$refs.scroll.jumpTo(this.liucheng[0]);
+
   },
   activated() {
-    // console.log("ref", this.$refs.scroll);
-    // if (this.$refs.scroll) {
-    //   this.$refs.scroll.jumpTo(this.liucheng[0]);
-    // }
+    if(this.$refs.scroll){
+      this.$refs.scroll.refresh();
+    }
+  },
+  beforeRouteLeave (to, from, next) {
+    console.log(this.$refs.scroll.stickyCurrent)
+    this.current =this.$refs.scroll.stickyCurrent
+    next()
   },
   methods: {
+    moveY(){
+      if( this.y){
+        this.$refs.scroll.scrollTo(0, this.y, 300);
+        this.$refs.scroll.refresh()
+      }
+    },
     getInfo() {
       const that = this;
       let jiami = this.jiami({
@@ -228,14 +265,9 @@ export default {
   .big-hr {
     /*margin-top: 3vw;*/
   }
-  .p3vw {
-    padding: 0 3vw;
-  }
-  .mt3vw {
-    margin-top: 3vw;
-  }
   .html {
-    p {
+    p,
+    span {
       font-size: 3.2vw !important;
       line-height: 4.8vw !important;
       color: #666666 !important;

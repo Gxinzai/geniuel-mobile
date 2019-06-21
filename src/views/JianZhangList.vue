@@ -72,7 +72,7 @@
               class="jianzhang-box df"
               @click="y = $refs.scroll.scroll.y"
             >
-              <router-link :to="{ path: '/', query: {} }">
+              <router-link :to="{ path: '/jianzhang', query: { id: jz.id } }">
                 <div class="df">
                   <div class="img-box">
                     <img v-lazy="jz.school_logo" alt="" />
@@ -380,12 +380,58 @@ export default {
       }
     };
   },
+  beforeRouteEnter(to, from, next) {
+    // console.log('to',to)
+    // console.log('from',from)
+    next(vm => {
+      if (["schoollist", "majorlist",'zzbs','zzss','tdxl','hzbx','gdyx'].find(x => x === from.name)) {
+        vm.filterResult.school.name = vm.$route.query.schoolname;
+        vm.filterResult.school.value = vm.$route.query.schoolid;
+
+        vm.filterResult.major.name = vm.$route.query.majorname;
+        vm.filterResult.major.value = vm.$route.query.majorid;
+
+        vm.filterResult.leixing.name = vm.$route.query.leixingname;
+        vm.filterResult.leixing.value = vm.$route.query.leixingid;
+        vm.reGetJianZhang();
+      }
+      if (from.name === "home") {
+        vm.filterResult = {
+          shouke: { name: "", value: 0 },
+          leixing: { name: "", value: 0 },
+          school: { name: "", value: 0 },
+          major: { name: "", value: 0 },
+          location: { name: "", value: 0 },
+          xuefei: { name: "", value: 0 }
+        };
+        vm.reGetJianZhang();
+      }
+      // 通过 `vm` 访问组件实例
+    });
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当守卫执行前，组件实例还没被创建
+  },
   mounted() {
     this.getFilters();
     this.getJianZhang();
+
+    // if (JSON.stringify(this.$route.query) === "{}") {
+    //   console.log(1)
+    //   this.getJianZhang();
+    // }
+    // console.log( this.$route)
   },
   activated() {
     this.moveY();
+    // if (JSON.stringify(this.$route.query) !== "{}") {
+    // this.filterResult.school.value = this.$route.query.schoolid;
+    // this.filterResult.major.value = this.$route.query.majorid;
+    // this.filterResult.school.name = this.$route.query.schoolname;
+    // this.filterResult.major.name = this.$route.query.majorname;
+    // this.reGetJianZhang()
+    // }
+    // console.log( this.$router)
   },
   computed: {
     closeBox() {
@@ -408,6 +454,9 @@ export default {
       } else {
         body.classList.remove("noscroll");
       }
+    },
+    filterResult: function() {
+      this.reGetJianZhang();
     }
   },
   methods: {

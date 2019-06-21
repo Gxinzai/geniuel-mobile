@@ -199,14 +199,8 @@ export default {
   .big-hr {
     /*margin-top: 3vw;*/
   }
-  .p3vw {
-    padding: 0 3vw;
-  }
-  .mt3vw {
-    margin-top: 3vw;
-  }
   .html {
-    p {
+    p,span {
       font-size: 3.2vw !important;
       line-height: 4.8vw !important;
       color: #666666 !important;

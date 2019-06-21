@@ -4,8 +4,12 @@
       <img class="loaction" src="../assets/icon-loaction.png" />
       <span class="loaction-word grayFont">位置</span>
       <img class="logo" alt="logo" src="../assets/logo.png" />
-      <img class="search" src="../assets/icon-search.png" />
-      <img class="admin" src="../assets/icon-admin.png" />
+      <router-link to="/search">
+        <img class="search" src="../assets/icon-search.png" />
+      </router-link>
+      <router-link to="/login">
+        <img class="admin" src="../assets/icon-admin.png" />
+      </router-link>
     </div>
     <cube-slide :showDots="false" :data="banner"></cube-slide>
     <div class="nav">

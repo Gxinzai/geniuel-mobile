@@ -17,7 +17,9 @@
       > {{ $route.meta.zn }}
       <!--<span @click="$router.go(-1)">>go(-1)</span>-->
     </div>
-    <img class="search" src="../assets/icon-search.png" alt="" />
+    <router-link to="/search">
+      <img class="search" src="../assets/icon-search.png" alt="" />
+    </router-link>
     <img class="admin" src="../assets/icon-admin.png" alt="" />
   </div>
 </template>
