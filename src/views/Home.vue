@@ -1,17 +1,29 @@
 <template>
   <div class="home">
     <div class="header">
-      <img class="loaction" src="../assets/icon-loaction.png" />
-      <span class="loaction-word grayFont">位置</span>
+      <!--<img class="loaction" src="../assets/icon-loaction.png" />-->
+      <!--<span class="loaction-word grayFont">位置</span>-->
       <img class="logo" alt="logo" src="../assets/logo.png" />
       <router-link to="/search">
         <img class="search" src="../assets/icon-search.png" />
       </router-link>
-      <router-link to="/login">
+      <router-link :to="!$root.userID ? '/login' : '/my'">
         <img class="admin" src="../assets/icon-admin.png" />
       </router-link>
     </div>
-    <cube-slide :showDots="false" :data="banner"></cube-slide>
+    <cube-slide :showDots="false" :data="banner">
+      <cube-slide-item v-for="(item, index) in banner" :key="index">
+        <router-link
+          class="db"
+          :to="{
+            path: '/jianzhang',
+            query: { id: item.url.match(/\d+(?=\.html)/g)[0] }
+          }"
+        >
+          <img :src="item.image" />
+        </router-link>
+      </cube-slide-item>
+    </cube-slide>
     <div class="nav">
       <div class="nav-container">
         <div class="nav-item fjac">
@@ -96,7 +108,7 @@
           @touchmove.prevent
           @mousemove.prevent
         >
-          <p @touchmove.prevent>{{ item }}</p>
+          <p @touchmove.prevent class="fc666">{{ item }}</p>
         </cube-slide-item>
       </cube-slide>
     </div>
@@ -108,43 +120,111 @@
       </p>
       <div class="fjsa fac" style="padding-bottom: 4vw;">
         <div v-for="(n, index) in zhuanti" :key="index">
-          <a class="db" :href="n.url">
+          <router-link
+            class="db"
+            :to="{
+              path: '/jianzhang',
+              query: { id: n.jz_id }
+            }"
+          >
             <img v-lazy="n.thumb" style="width: 30.27vw" />
-          </a>
+          </router-link>
         </div>
       </div>
     </div>
     <div class="big-hr"></div>
     <div>
-      <p class="h1 f18 fjac">国外留学</p>
+      <p class="h1 f18 fjac">合作办学</p>
       <p class="grayFont">
         在职研究生/博士留学项目
       </p>
       <router-link to="/">
-        <p class="grayFont h2">
-          << 点击查看更多
+        <p class=" h2">
+          <router-link
+            class="dib grayFont"
+            :to="{
+              path: 'jianzhanglist',
+              query: {
+                leixingid: 3582,
+                leixingname: '合作办学'
+              }
+            }"
+          >
+            << 点击查看更多
+          </router-link>
         </p>
       </router-link>
       <div class="fjsa fac" style="padding-bottom: 4vw;">
-        <img
-          src="../assets/菲律宾德拉萨-阿拉内塔大学.png"
-          style="width: 30.67vw"
-        />
-        <img src="../assets/菲律宾法蒂玛大学.png" style="width: 30.67vw" />
-        <img src="../assets/菲律宾国父大学.png" style="width: 30.67vw" />
+        <router-link
+          class="dib"
+          :to="{
+            path: 'jianzhanglist',
+            query: {
+              schoolid: 161,
+              schoolname: '菲律宾国父大学'
+            }
+          }"
+        >
+          <img src="../assets/菲律宾国父大学.png" style="width: 30.67vw" />
+        </router-link>
+        <router-link
+          class="dib"
+          :to="{
+            path: 'jianzhanglist',
+            query: {
+              schoolid: 164,
+              schoolname: '德拉萨大学'
+            }
+          }"
+        >
+          <img
+            src="../assets/菲律宾德拉萨-阿拉内塔大学.png"
+            style="width: 30.67vw"
+          />
+        </router-link>
+
+        <router-link
+          class="dib"
+          :to="{
+            path: 'jianzhanglist',
+            query: {
+              schoolid: 168,
+              schoolname: '法蒂玛'
+            }
+          }"
+        >
+          <img src="../assets/菲律宾法蒂玛大学.png" style="width: 30.67vw" />
+        </router-link>
       </div>
     </div>
     <div class="big-hr"></div>
     <div>
       <p class="h1 f18 fjac">高端研修班</p>
-      <p class="grayFont h2">
-        << 点击查看更多
+      <p class=" h2">
+        <router-link
+          class="dib grayFont"
+          :to="{
+            path: 'jianzhanglist',
+            query: {
+              leixingid: 3583,
+              leixingname: '高端研修'
+            }
+          }"
+        >
+          << 点击查看更多
+        </router-link>
       </p>
       <div class="fjsa fac" style="padding-bottom: 4vw;">
         <div v-for="(n, index) in yanxiu" :key="index">
-          <a class="db" :href="n.url">
+          <router-link
+            class="db"
+            :to="{
+              path: '/jianzhang',
+              query: { id: n.url.match(/\d+(?=\.html)/g)[0] }
+            }"
+          >
             <img v-lazy="n.img" style="width: 30.67vw" />
-          </a>
+          </router-link>
         </div>
       </div>
     </div>
@@ -152,20 +232,32 @@
     <div class="big-hr"></div>
     <div>
       <p class="h1 f18 fjac">报考指南</p>
-      <p class="grayFont h2">
-        << 点击查看更多
+      <p class=" h2">
+        <router-link class="db grayFont" to="zixunlist">
+          << 点击查看更多
+        </router-link>
       </p>
       <div style="padding-bottom: 2vw;">
         <div class=" guide-item" v-for="(n, index) in baokao" :key="index">
-          <a class="fac" :href="n.url">
-            <img src="../assets/ztad01.png" />
-            <div>
-              <p class="tl">{{ n.title }}</p>
-              <p class="tj">
-                {{ n.remark | wordLimit(43) }}
+          <router-link
+            class="db fac"
+            :to="{
+              path: '/zixuncontent',
+              query: { id: n.url.match(/\d+(?=\.html)/g)[0], type: 'zixun' }
+            }"
+          >
+            <img v-if="index===1" src="../assets/ztad01.png" />
+            <img v-if="index===0" src="../assets/ztad02.png" />
+            <div class="p3vw">
+              <p class="tl ell f14 fc333 b">{{ n.title }}</p>
+              <p class="tj fc666">
+                {{ n.remark | wordLimit(35) }}
               </p>
             </div>
-          </a>
+          </router-link>
+          <!--<a class="fac" :href="n.url">-->
+
+          <!--</a>-->
         </div>
       </div>
     </div>
@@ -201,9 +293,13 @@ export default {
         // }
       ],
       message: [
-        "刚刚138****8909报考清华大学在职博士课程",
-        "刚刚138****8909报考清华大学在职博士课程",
-        "刚刚138****8909报考清华大学在职博士课程"
+        "刚刚153****2715报考倾山商学院EMBA研修班",
+        "刚刚139****5537报考社科院博士项目",
+        "刚刚138****8909报考清华大学博士项目",
+        "刚刚187****1306报考北京师范研究生项目",
+        "刚刚181****9797报考菲律宾国父大学博士项目",
+        "刚刚155****5583报考德拉萨大学博士项目",
+        "刚刚181****7550报考北京大学博士项目"
       ],
       guide: [
         {
@@ -231,12 +327,12 @@ export default {
           // this.qs.stringify(data)
         )
         .then(function(response) {
-          console.log(response.data);
+          // console.log(response.data);
           that.banner = response.data.info.banner;
           that.yanxiu = response.data.info.yanxiu;
           that.zhuanti = response.data.info.project_list;
           that.baokao = response.data.info.baokao_list;
-          console.log(that.banner);
+          // console.log(that.banner);
         })
         .catch(function(error) {
           // console.log(error);
@@ -259,16 +355,16 @@ export default {
     margin-left: 1vw;
   }
   .logo {
-    margin: 0 auto;
+    margin: 0 auto 0 3vw;
     width: 26.53vw;
   }
   .search {
     margin-right: 4vw;
-    width: 3.33vw;
+    width: 5.07vw;
   }
   .admin {
     margin-right: 2.67vw;
-    width: 2.93vw;
+    width: 4.4vw;
   }
 }
 .nav-container {
@@ -288,7 +384,8 @@ export default {
     border-right: none;
   }
   p {
-    color: #666666;
+    color: #333333;
+    font-size: 3.73vw;
   }
 }
 .message-left {
@@ -314,14 +411,14 @@ export default {
 .guide-item {
   padding: 3vw 0;
   img {
-    margin: 0 3vw;
+    margin-left: 3vw;
+    /*margin: 0 3vw;*/
     width: 18.67vw;
   }
   .tl {
     margin-bottom: 5px;
   }
   .tj {
-    color: #666666;
     padding-right: 3vw;
   }
 }

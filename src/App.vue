@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive exclude="ZiXun,hzbx,jianZhang,BaoMing">
+    <keep-alive exclude="ZiXun,zzbs,hzbx,jianZhang,BaoMing,register">
       <router-view />
     </keep-alive>
   </div>
@@ -26,6 +26,9 @@ body.noscroll {
 .f14 {
   font-size: 3.73vw;
 }
+.f15 {
+  font-size: 4vw;
+}
 .f16 {
   font-size: 4.26vw;
 }
@@ -38,10 +41,10 @@ body.noscroll {
 .lh24 {
   line-height: 6.4vw;
 }
-.por{
+.por {
   position: relative;
 }
-.poa{
+.poa {
   position: absolute;
 }
 .db {
@@ -65,6 +68,10 @@ body.noscroll {
 .fac {
   display: flex;
   align-items: center;
+}
+.fab {
+  display: flex;
+  align-items: baseline;
 }
 .facsb {
   display: flex;
@@ -116,6 +123,9 @@ body.noscroll {
 .yellowFont {
   color: #ffc119;
 }
+.yellowBg {
+  background: #ffd019;
+}
 .red {
   color: #dd0000 !important;
 }
@@ -142,6 +152,7 @@ body.noscroll {
 .h1 {
   margin-top: 6vw;
   margin-bottom: 2vw;
+  font-weight: bold;
   &::before,
   &::after {
     display: inline-block;
@@ -214,23 +225,54 @@ body.noscroll {
     height: auto !important;
     object-fit: contain;
   }
-  .table-responsive{
+  .table-responsive {
     width: 100% !important;
     height: auto !important;
     overflow-x: auto;
     overflow-y: hidden;
     -ms-overflow-style: -ms-autohiding-scrollbar;
   }
-  strong{
+  strong {
     display: block;
     color: rgba(255, 12, 12, 1);
   }
-  table,table tr th, table tr td { border:1px solid #eee; }/*设置边框*/
-  table{
-    td{
+  table,
+  table tr th,
+  table tr td {
+    border: 1px solid #eee;
+  } /*设置边框*/
+  table {
+    td {
       /*white-space: nowrap;*/
     }
   }
+}
+.login {
+  .cube-form_classic .cube-form-item {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .cube-btn {
+    line-height: 8vw;
+    background: #ffd019;
+    border-radius: 20px;
+    padding: 0;
+  }
+  .login-form{
+    .cube-form-item:last-child{
+      padding-bottom: 15px !important;
+    }
+  }
+}
+.cube-scroll-nav-bar_horizontal .cube-scroll-nav-bar-items{
+  background: rgba(0,0,0,0.6);
+}
+.cube-scroll-nav-bar-item{
+  color: white;
+  padding: 15px;
+}
+.cube-scroll-nav-bar-item_active{
+  color: #FFCC01;
 }
 </style>
 <script>

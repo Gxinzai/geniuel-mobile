@@ -1,14 +1,18 @@
 <template>
   <div class="footer">
     <div style="background: black;color: white;margin-bottom: 12vw;">
-      <div class="f14 fjac">
-        <a class="whiteFont dib" href="http://www.geniuel.com/">电脑版</a>
-        <!--&emsp;&emsp;-->
-        <!--<router-link class="whiteFont" to="">网站地图</router-link>-->
+      <div v-if="hasBlack">
+        <div class="f14 fjac">
+          <a class="whiteFont dib" href="http://www.geniuel.com/?fromMobile=true"
+            >电脑版</a
+          >
+          <!--&emsp;&emsp;-->
+          <!--<router-link class="whiteFont" to="">网站地图</router-link>-->
+        </div>
+        <p class="copy">
+          Copyright © 2018 景牛在线 All Rights Reserved
+        </p>
       </div>
-      <p class="copy">
-        Copyright © 2018 景牛在线 All Rights Reserved
-      </p>
     </div>
     <transition>
       <div
@@ -56,7 +60,10 @@
         </div>
 
         <div class="fjac footer-item">
-          <div>
+          <div
+            class="clipboardFooter"
+            data-clipboard-text="http://m.geniuel.com/"
+          >
             <img
               src="../assets/icon-share.png"
               style="width:3.2075vw;"
@@ -71,8 +78,30 @@
 </template>
 
 <script>
+import ClipboardJS from "clipboard";
+
 export default {
-  name: "MyFooter"
+  name: "MyFooter",
+  props: {
+    hasBlack: {
+      type: Boolean,
+      default: true
+    }
+  },
+  methods: {
+    goPC: function() {
+      // console.log(1)
+      // window.localStorage.setItem("fromMobile", true);
+    }
+  },
+  mounted() {
+    let that = this;
+    let clipboard = new ClipboardJS(".clipboardFooter");
+    clipboard.on("success", function(e) {
+      that.myToast("已复制网址链接到粘贴板");
+      e.clearSelection();
+    });
+  }
 };
 </script>
 

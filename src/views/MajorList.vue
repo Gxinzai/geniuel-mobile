@@ -66,7 +66,7 @@ export default {
           that.loading = false;
           that.recommend = response.data.info.recommond;
           that.major = response.data.info.major_list;
-          console.log(that.recommend);
+          // console.log(that.recommend);
           console.timeEnd(1);
         })
         .catch(function(error) {

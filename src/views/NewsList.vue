@@ -1,30 +1,6 @@
 <template>
   <div>
-    <my-header></my-header>
-    <div class="fjsb fac filter-container">
-      <div
-        class="filter-item"
-        @click="
-          filtersResult = 0;
-          reGetZiXun();
-        "
-        :class="[filtersResult === 0 ? 'active f16' : '']"
-      >
-        全部
-      </div>
-      <div
-        v-for="(e, i) in filters"
-        :key="i"
-        class="filter-item"
-        :class="[filtersResult === e.value ? 'active f16' : '']"
-        @click="
-          filtersResult = e.value;
-          reGetZiXun();
-        "
-      >
-        {{ e.name }}
-      </div>
-    </div>
+    <white-header></white-header>
     <div class="mybody">
       <div class="scroll-list-wrap">
         <cube-scroll
@@ -34,53 +10,42 @@
           @pulling-down="onPullingDown"
           @pulling-up="onPullingUp"
         >
-          <img :src="banner.image" class="banner" alt="" />
           <ul>
             <li
               v-for="(zx, index) in zixun"
               :key="index"
               class="zixun-box tl"
-              @click="y = $refs.scroll.scroll.y"
+              @click="y=$refs.scroll.scroll.y"
             >
-              <router-link
-                :to="{
-                  path: 'zixuncontent',
-                  query: { type: zx.type, id: zx.id }
-                }"
-              >
-                <p class="title f14 fc333 ell">{{ zx.title }}</p>
+              <router-link :to="{ path: 'news', query: {id:zx.id }}" >
+                <p class="title f14">{{zx.title| wordLimit(22) }}</p>
                 <div class="df fac">
-                  <img :src="zx.thumb" class="thumb" v-if="zx.thumg" alt="" />
-                  <div
-                    class="remark fc666 lh18 "
-                    v-html="zx.remark.slice(0, 50) + '...'"
-                  ></div>
+                  <img :src="zx.thumb" class="thumb" v-if="zx.thumg" alt="">
+                  <div class="remark fc666 lh18 " v-html="zx.note.slice(0,50)+'...'"></div>
                 </div>
-                <p class="time grayFont">{{ zx.addtime }}</p>
+                <p class="time grayFont">{{zx.addtime}}</p>
               </router-link>
             </li>
           </ul>
         </cube-scroll>
       </div>
     </div>
-    <my-footer :has-black="false"></my-footer>
   </div>
 </template>
 
 <script>
-import MyHeader from "../components/MyHeader";
-import MyFooter from "../components/MyFooter";
+import WhiteHeader from "../components/WhiteHeader";
 export default {
-  name: "ZiXunList",
-  components: { MyFooter, MyHeader },
+  name: "NewsList",
+  components: {WhiteHeader},
   data() {
     return {
-      banner: "",
+      banner:'',
       zixun: [],
       filters: [],
       filtersResult: 0,
       pageno: 1,
-      y: 0,
+      y:0,
       options: {
         pullDownRefresh: {
           threshold: 90,
@@ -99,23 +64,22 @@ export default {
     };
   },
   mounted() {
-    this.getFilters();
     this.getZiXun();
   },
-  activated() {
+  activated(){
     this.moveY();
   },
   methods: {
-    moveY() {
-      if (this.y) {
+    moveY(){
+      if( this.y){
         this.$refs.scroll.scrollTo(0, this.y, 300);
-        this.$refs.scroll.refresh();
+        this.$refs.scroll.refresh()
       }
     },
     reGetZiXun() {
-      this.y = 0;
+      this.y=0;
       this.$refs.scroll.scrollTo(0, 0, 300);
-      this.$refs.scroll.refresh();
+      this.$refs.scroll.refresh()
 
       this.zixun = [];
       this.pageno = 1;
@@ -140,41 +104,24 @@ export default {
         });
       }, 300);
     },
-    getFilters() {
-      const that = this;
-      this.axios
-        .get("/phalapi/public/", {
-          params: {
-            service: "App.Index.GetNewsScreen"
-          }
-        })
-        .then(function(response) {
-          // console.log(response.data.info);
-          that.filters = response.data.info;
-        })
-        .catch(function(error) {
-          // console.log(error);
-        });
-    },
     async getZiXun() {
       const that = this;
       let jiami = wjz({
-        type_id: that.filtersResult,
+        uid:that.$root.userID,
         pageno: that.pageno,
         pagesize: 8
       });
       await this.axios
         .get("/phalapi/public/", {
           params: {
-            service: "App.Index.GetNewsList",
+            service: "App.User.MyNewsList",
             key: jiami.key,
             info: jiami.value
           }
         })
         .then(function(response) {
-          // console.table(response.data.info.news_list);
-          that.banner = response.data.info.banner[0];
-          that.zixun = [...that.zixun, ...response.data.info.news_list];
+          // console.log(response);
+          that.zixun = [...that.zixun, ...response.data.info];
         })
         .catch(function(error) {
           // console.log(error);
@@ -184,9 +131,9 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .filter-container {
-  padding: 0 3vw;
+  padding: 0 3vw ;
   height: 10.5vw;
   border-bottom: 1px solid #e4e4e4;
 }
@@ -199,28 +146,27 @@ export default {
 .filter-item.active {
   border-bottom: 1px solid #ffc119;
 }
-.banner {
+.banner{
   width: 100%;
 }
-.zixun-box {
+.zixun-box{
   padding: 3vw;
   border-bottom: 1px solid #e4e4e4;
-  .title {
-    margin-bottom: 2vw;
-  }
-  .remark {
-    margin-bottom: 2vw;
-  }
-  .time {
-    margin-bottom: 1vw;
-  }
-  .thumb {
-    width: 13.07vw;
-  }
+}
+.title{
+  margin-bottom: 2vw;
+}
+.remark{
+  margin-bottom: 2vw;
+}
+.time{
+  margin-bottom: 1vw;
+}
+.thumb{
+  width: 13.07vw;
 }
 .scroll-list-wrap {
-  height: calc(100vh - 32.5vw);
+  height: calc(100vh - 10.5vw);
 }
-.ads {
-}
+  .ads{}
 </style>

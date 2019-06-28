@@ -31,7 +31,7 @@ export default {
       this.$emit("updateFilter", item);
     },
     clickTitle(title) {
-      console.log(title);
+      // console.log(title);
     }
   }
 };

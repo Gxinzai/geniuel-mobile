@@ -1,14 +1,24 @@
 <template>
   <div>
     <my-header></my-header>
-    {{current}}
+    <!--{{current}}-->
     <div class="fjac" style="min-height: calc(100vh - 22.5vw);" v-if="loading">
       <cube-loading class="fjac" :size="40"></cube-loading>
     </div>
     <div class="zzbs" style="height: calc(100vh - 22.5vw);" v-else>
-      <cube-scroll-nav @change="changeHandler"   :current="current" ref="scroll">
-        <cube-scroll-nav-panel :label="liucheng[0]">
-          <div class="fjac" style="height: 15vh;">img</div>
+      <!--<cube-scroll-nav @change="changeHandler" :current="current" ref="scroll">-->
+      <cube-scroll-nav @change="changeHandler" ref="scroll">
+        <cube-scroll-nav-panel :label="'①'+liucheng[0]">
+          <router-link
+            class="db"
+            :to="{ path: '/jianzhang', query: { id: 3430 } }"
+          >
+            <img
+              style="width: 100%;"
+              src="http://www.geniuel.com/uploadfile/2019/06/13/20190613161534WUTd63.png"
+              alt=""
+            />
+          </router-link>
           <div class="h1 f18 fjac">什么是{{ $route.meta.zn }}</div>
           <div class="html p3vw" v-html="project_info.content"></div>
           <div class="big-hr mt3vw"></div>
@@ -30,7 +40,7 @@
           <div class="big-hr"></div>
         </cube-scroll-nav-panel>
 
-        <cube-scroll-nav-panel :label="liucheng[1]">
+        <cube-scroll-nav-panel :label="'②'+liucheng[1]">
           <div class="h1 f18 fjac">报名资料</div>
           <div class="html p3vw" v-html="project_info.baoming"></div>
           <div class="big-hr mt3vw"></div>
@@ -39,12 +49,12 @@
           <div class="big-hr mt3vw"></div>
         </cube-scroll-nav-panel>
 
-        <cube-scroll-nav-panel :label="liucheng[2]">
+        <cube-scroll-nav-panel :label="'③'+liucheng[2]">
           <div class="h1 f18 fjac">成绩查询</div>
           <div class="html p3vw" v-html="project_info.chaxun"></div>
           <div class="big-hr mt3vw"></div>
         </cube-scroll-nav-panel>
-        <cube-scroll-nav-panel :label="liucheng[3]">
+        <cube-scroll-nav-panel :label="'④'+liucheng[3]">
           <div class="h1 f18 fjac">申请论文</div>
           <div class="html p3vw" v-html="project_info.lunwen"></div>
           <div class="big-hr mt3vw"></div>
@@ -64,7 +74,7 @@
           </ul>
           <div class="big-hr mt3vw"></div>
         </cube-scroll-nav-panel>
-        <cube-scroll-nav-panel :label="liucheng[4]">
+        <cube-scroll-nav-panel :label="'⑤'+liucheng[4]">
           <div class="h1 f18 fjac">学位授予</div>
           <div class="html p3vw" v-html="project_info.xuewei"></div>
           <div class="big-hr mt3vw"></div>
@@ -97,7 +107,7 @@
           </div>
           <div class="big-hr mt3vw"></div>
         </cube-scroll-nav-panel>
-        <cube-scroll-nav-panel :label="liucheng[5]">
+        <cube-scroll-nav-panel :label="'⑥'+liucheng[5]">
           <div class="h1 f18 fjac">推荐院校</div>
           <ul class="p3vw school fjsb fww">
             <li class="" v-for="(e, i) in project_info.hot_school" :key="i">
@@ -122,13 +132,13 @@
             </li>
           </ul>
           <div class="p3vw">
-            <router-link to="">
+            <router-link to="schoollist">
               <div class="more">进入选择院校 >></div>
             </router-link>
           </div>
           <div class="big-hr mt3vw"></div>
         </cube-scroll-nav-panel>
-        <cube-scroll-nav-panel :label="liucheng[6]">
+        <cube-scroll-nav-panel :label="'⑦'+liucheng[6]">
           <div class="h1 f18 fjac">推荐专业</div>
           <ul class="p3vw major fjsb fww">
             <li class="" v-for="(e, i) in project_info.hot_zy" :key="i">
@@ -150,13 +160,13 @@
             </li>
           </ul>
           <div class="p3vw">
-            <router-link to="">
+            <router-link to="majorlist">
               <div class="more">进入选择专业 >></div>
             </router-link>
           </div>
           <div class="big-hr mt3vw"></div>
         </cube-scroll-nav-panel>
-        <cube-scroll-nav-panel :label="liucheng[7]">
+        <cube-scroll-nav-panel :label="'⑧'+liucheng[7]">
           <div class="h1 f18 fjac">推荐简章</div>
           <ul class="p3vw lunwen">
             <li class="fac" v-for="(e, i) in project_info.hot_jz" :key="i">
@@ -169,7 +179,7 @@
             </li>
           </ul>
           <div class="p3vw mt3vw">
-            <router-link to="">
+            <router-link to="jianzhanglist">
               <div class="more">进入选择简章 >></div>
             </router-link>
           </div>
@@ -177,7 +187,7 @@
         </cube-scroll-nav-panel>
       </cube-scroll-nav>
     </div>
-    <my-footer></my-footer>
+    <my-footer :has-black="false"></my-footer>
   </div>
 </template>
 
@@ -189,8 +199,8 @@ export default {
   components: { MyFooter, MyHeader },
   data() {
     return {
-      y:0,
-      current:'',
+      y: 0,
+      current: "",
       project_info: "",
       loading: true,
       liucheng: [
@@ -208,23 +218,22 @@ export default {
   mounted() {
     this.getInfo();
     // this.$refs.scroll.jumpTo(this.liucheng[0]);
-
   },
   activated() {
-    if(this.$refs.scroll){
+    if (this.$refs.scroll) {
       this.$refs.scroll.refresh();
     }
   },
-  beforeRouteLeave (to, from, next) {
-    console.log(this.$refs.scroll.stickyCurrent)
-    this.current =this.$refs.scroll.stickyCurrent
-    next()
+  beforeRouteLeave(to, from, next) {
+    // console.log(this.$refs.scroll.stickyCurrent);
+    // this.current = this.$refs.scroll.stickyCurrent;
+    next();
   },
   methods: {
-    moveY(){
-      if( this.y){
+    moveY() {
+      if (this.y) {
         this.$refs.scroll.scrollTo(0, this.y, 300);
-        this.$refs.scroll.refresh()
+        this.$refs.scroll.refresh();
       }
     },
     getInfo() {
@@ -241,7 +250,7 @@ export default {
           }
         })
         .then(function(response) {
-          console.log(response.data.info);
+          // console.log(response.data.info);
           that.project_info = response.data.info.project_info;
           that.liucheng = response.data.info.liucheng;
           that.loading = false;
@@ -297,6 +306,9 @@ export default {
         content: "·";
         display: inline-block;
       }
+    }
+    .ell{
+      padding-left:1vw;
     }
   }
   .school {

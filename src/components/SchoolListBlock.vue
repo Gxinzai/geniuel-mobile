@@ -3,14 +3,11 @@
     <div>
       <div
         class="fjsb"
-        style="padding:3vw;background: #F0F0F0;border: solid #E4E4E4;border-width: 1px 0"
+        style="padding:3vw;background: #f5f5f5;border: solid #E4E4E4;border-width: 1px 0"
+        @click="filter = !filter"
       >
         <span class="grayFont">{{ location }}</span>
-        <div
-          class="arrow down"
-          :class="[filter ? 'up' : 'down']"
-          @click="filter = !filter"
-        ></div>
+        <div class="arrow down" :class="[filter ? 'up' : 'down']"></div>
       </div>
       <transition-group name="slide-fade">
         <div
@@ -21,7 +18,10 @@
         >
           <router-link
             class="dib fac school-container"
-            :to="{ path: 'jianzhanglist', query: { schoolid: item.id , schoolname : item.title } }"
+            :to="{
+              path: 'jianzhanglist',
+              query: { schoolid: item.id, schoolname: item.title }
+            }"
           >
             <img
               v-lazy="item.thumb"

@@ -3,7 +3,8 @@
     <div>
       <div
         class="fjsb fac"
-        style="padding:3vw;padding-right: 8vw;background: #ECECEC;border: solid #E4E4E4;border-width: 1px 0"
+        style="padding:3vw;padding-right: 8vw;background: #f5f5f5;border: solid #E4E4E4;border-width: 1px 0"
+        @click="filter = !filter"
       >
         <div>
           <img
@@ -18,7 +19,6 @@
           <div
             class="more dib"
             :class="[filter ? 'plus' : 'minus']"
-            @click="filter = !filter"
           ></div>
         </div>
       </div>

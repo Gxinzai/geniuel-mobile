@@ -4,7 +4,7 @@
       <div class="poa back" @click="$router.go(-1)"></div>
       <img src="../assets/logo-circle.png" style="width: 22.13vw;" alt="" />
     </div>
-    <canvas id="canvas" style="width: 100vw;height: 10vh"></canvas>
+    <my-wave></my-wave>
     <div class="container">
       <div class="tabBar f16 df por" ref="tabBar">
         <div
@@ -30,13 +30,40 @@
         ></cube-form>
       </div>
       <div class="tabContainer mt3vw" v-if="1 === currentIndex">
-        1
+        <cube-form
+          :model="modelR"
+          :options="options"
+          @validate="validateHandlerR"
+          @submit="submitHandlerR"
+        >
+          <cube-form-group>
+            <cube-form-item :field="fields[0]"></cube-form-item>
+            <div class="fjsb fac code-box">
+              <cube-form-item :field="fields[1]">
+                <cube-input
+                  v-model="modelR.code"
+                  placeholder="验证码"
+                  type="number"
+                ></cube-input>
+              </cube-form-item>
+              <div class="btn f12 code-btn">
+                <span v-show="!send" @click="sendAuthCode">获取验证码</span>
+                <span v-show="send">{{ authTime }}秒后重试</span>
+              </div>
+            </div>
+          </cube-form-group>
+          <cube-form-group class="login-form">
+            <cube-form-item>
+              <cube-button type="submit">登录</cube-button>
+            </cube-form-item>
+          </cube-form-group>
+        </cube-form>
       </div>
       <div class="fjsb mt3vw">
-        <router-link class="yellowFont" to="">
+        <router-link class="yellowFont" to="forget">
           忘记密码？
         </router-link>
-        <router-link class="yellowFont" to="">
+        <router-link class="yellowFont" to="register">
           立即注册
         </router-link>
       </div>
@@ -45,17 +72,36 @@
 </template>
 
 <script>
+import MyWave from "../components/MyWave";
 export default {
   name: "LogIn",
+  components: { MyWave },
   data() {
     return {
-      tabBar: ["手机登陆", "验证码登陆"],
+      fromCollect: false,
+      send: false,
+      authTime: 0,
+      tabBar: ["密码登录", "验证码登录"],
       currentIndex: 0,
-      validity: {},
+      validity: {
+        phone: {
+          valid: false
+        }
+      },
+      validityR: {
+        phone: {
+          valid: false
+        }
+      },
       valid: undefined,
+      validR: undefined,
       model: {
         phone: "",
         password: ""
+      },
+      modelR: {
+        phone: "",
+        code: ""
       },
       schema: {
         groups: [
@@ -94,11 +140,40 @@ export default {
             fields: [
               {
                 type: "submit",
-                label: "登陆"
+                label: "登录"
               }
             ]
           }
         ]
+      },
+      fields: [
+        {
+          type: "input",
+          modelKey: "phone",
+          props: {
+            clearable: true,
+            placeholder: "请输入手机号码"
+          },
+          rules: {
+            type: "tel",
+            required: true
+          },
+          trigger: "blur"
+        },
+        {
+          type: "input",
+          modelKey: "code",
+          props: {
+            placeholder: "验证码"
+          },
+          rules: {
+            required: true
+          },
+          trigger: "blur"
+        }
+      ],
+      rules: {
+        required: true
       },
       options: {
         scrollToInvalidField: true,
@@ -106,89 +181,145 @@ export default {
       }
     };
   },
-  computed: {
-    classObject() {
-      return {
-        active: this.tabBar
-      };
-    }
+
+  beforeRouteEnter(to, from, next) {
+    // console.log("to", to);
+    // console.log("from", from);
+    next(vm => {
+      if (["jianzhang", "zixun"].find(x => x === from.name)) {
+        vm.fromCollect = true;
+      } else {
+        vm.fromCollect = false;
+      }
+      // if (from.name === "home") {
+      //   vm.filterResult = {
+      //     shouke: { name: "", value: 0 },
+      //     leixing: { name: "", value: 0 },
+      //     school: { name: "", value: 0 },
+      //     major: { name: "", value: 0 },
+      //     location: { name: "", value: 0 },
+      //     xuefei: { name: "", value: 0 }
+      //   };
+      //   vm.reGetJianZhang();
+      // }
+      // 通过 `vm` 访问组件实例
+    });
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当守卫执行前，组件实例还没被创建
   },
   mounted() {
     this.items = this.$refs.tabBar.querySelectorAll(".item");
     this.line = this.$refs.tabBar.querySelector(".yellow-line");
     this.line.style.width = `${this.items[0].clientWidth}px`;
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    let step = 0;
-    const lines = 3;
-    const colorArr = [
-      "rgba(256, 256, 256,.6)",
-      "rgba(256, 256, 256,.4)",
-      "white"
-    ];
-    function loop() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(255, 208, 25,1)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      step++;
-      for (let i = 0; i < lines; i++) {
-        ctx.fillStyle = colorArr[i];
-        var angle = ((step + (i * 180) / lines) * Math.PI) / 180;
-        var deltaHeight = Math.sin(angle) * 50;
-        var deltaHeightRight = Math.cos(angle) * 50;
-        ctx.beginPath();
-        ctx.moveTo(0, canvas.height / 2 + deltaHeight);
-        ctx.bezierCurveTo(
-          canvas.width / 2,
-          canvas.height / 2 + deltaHeight - 50,
-          canvas.width / 2,
-          canvas.height / 2 + deltaHeightRight - 50,
-          canvas.width,
-          canvas.height / 2 + deltaHeightRight
-        );
-        ctx.lineTo(canvas.width, canvas.height);
-        ctx.lineTo(0, canvas.height);
-        ctx.lineTo(0, canvas.height / 2 + deltaHeight);
-        ctx.closePath();
-        ctx.fill();
-      }
-      requestAnimationFrame(loop);
-    }
-    loop();
   },
   methods: {
+    sendAuthCode() {
+      let that = this;
+      // console.log(that.$root.userID);
+      if (this.validityR.phone.valid) {
+        let jiami = this.jiami({
+          phone: that.modelR.phone,
+          type: 0
+        });
+        this.axios
+          .post(
+            "/phalapi/public/?service=App.User.GetPhoneCode",
+            this.qs.stringify({
+              key: jiami.key,
+              info: jiami.value
+            })
+          )
+          .then(function(response) {
+            // console.log(response);
+            that.myToast(response.data.msg)
+            if (response.data.code) {
+              that.send = true;
+              that.authTime = 60;
+              let authTimetimer = setInterval(() => {
+                that.authTime--;
+                if (that.authTime <= 0) {
+                  that.send = false;
+                  clearInterval(authTimetimer);
+                }
+              }, 1000);
+            }
+          })
+          .catch(function(error) {
+            // console.log(error);
+          });
+      } else {
+        that.myToast("请输入正确的手机号码")
+
+      }
+    },
     changeTabBar(i) {
       this.currentIndex = i;
       this.line.style.left = `${this.items[i].offsetLeft}px`;
-      console.log(this.items[i].offsetLeft);
-      console.log(this.items[i].clientWidth);
     },
     submitHandler(e) {
       e.preventDefault();
-      // console.log("submit", e);
-      // console.log("rsult", this.model);
       const that = this;
       const { phone, password } = that.model;
       let jiami = this.jiami({
+        type: 0,
         phone,
         password
       });
-      // console.log(jiami)
       this.axios
         .post(
-          "/phalapi/public/?service=App.Index.PostBaoMing",
+          "/phalapi/public/?service=App.User.Login",
           this.qs.stringify({
             key: jiami.key,
             info: jiami.value
           })
         )
         .then(function(response) {
-          // console.log(response.data.msg);
-          that.toast = that.$createToast({
-            txt: response.data.msg,
-            type: "txt"
-          });
-          that.toast.show();
+          // console.log(response);
+          that.myToast(response.data.msg)
+          if (response.data.code) {
+            // console.log(response.data.info.uid);
+            that.$root.userID = response.data.info.uid;
+            window.localStorage.setItem("userID", response.data.info.uid);
+            // 未登录客户点击收藏，登录后跳回原页面
+            if (that.fromCollect) {
+              that.$router.go("-1");
+              return;
+            }
+            that.$router.push("my");
+          }
+        })
+        .catch(function(error) {
+          // console.log(error);
+        });
+    },
+    submitHandlerR(e) {
+      e.preventDefault();
+      const that = this;
+      const { phone, code } = that.modelR;
+      let jiami = this.jiami({
+        type: 1,
+        phone,
+        code
+      });
+      this.axios
+        .post(
+          "/phalapi/public/?service=App.User.Login",
+          this.qs.stringify({
+            key: jiami.key,
+            info: jiami.value
+          })
+        )
+        .then(function(response) {
+          // console.log(response);
+          that.myToast(response.data.msg)
+
+          if (response.data.code) {
+            // console.log(response.data.info.uid);
+            that.$root.userID = response.data.info.uid;
+            window.localStorage.setItem("userID", response.data.info.uid);
+            that.$router.push("my");
+          }
         })
         .catch(function(error) {
           // console.log(error);
@@ -197,12 +328,16 @@ export default {
     validateHandler(result) {
       this.validity = result.validity;
       this.valid = result.valid;
+    },
+    validateHandlerR(result) {
+      this.validityR = result.validity;
+      this.validR = result.valid;
     }
   }
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .block {
   height: 30vh;
   background: rgb(255, 208, 25);
@@ -218,7 +353,7 @@ export default {
   transform: rotate(-135deg);
 }
 .container {
-  width: 60vw;
+  width: 70vw;
   margin: 0 auto;
 }
 .tabBar {
@@ -244,16 +379,17 @@ export default {
     transition: all 0.5s;
   }
 }
-.login {
-  .cube-form_classic .cube-form-item {
-    padding-left: 0;
-    padding-right: 0;
+.code-box {
+  height: 85px;
+  .cube-form-item {
+    width: 50vw;
   }
-  .cube-btn {
-    line-height: 8vw;
-    background: #ffd019;
-    border-radius: 20px;
-    padding: 0;
-  }
+}
+.code-btn {
+  width: 22.67vw;
+  line-height: 35px;
+  background: rgba(255, 215, 0, 1);
+  border-radius: 4px;
+  margin-left: 2vw;
 }
 </style>

@@ -103,7 +103,7 @@ export default {
           }
         })
         .then(function(response) {
-          console.log(response.data.info);
+          // console.log(response.data.info);
           that.school = response.data.info;
           that.schoolCopy = { ...that.school };
           that.loading = false;

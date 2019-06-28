@@ -2,7 +2,12 @@
   <div>
     <my-header></my-header>
     <div class="input-box df">
-      <input class="input f16" v-model="keywords" type="text" />
+      <input
+        class="input f16"
+        v-model="keywords"
+        placeholder="输入搜索关键词"
+        type="text"
+      />
       <div class="icon fjac" @click="reGetZiXun()">
         <img class="search" src="../assets/icon-search.png" alt="" />
       </div>
@@ -26,19 +31,25 @@
         <div v-if="!keywords">
           <div class="big-hr"></div>
           <div class="p3vw mt3vw">
-            <p class="fc999 f16 tl"> 大家都在搜：</p>
+            <p class="fc999 f16 tl">大家都在搜：</p>
             <div class="fjsb fww mt3vw">
-              <div class="remen-item fjac" v-for="(e,i) in remen" :key="i" @click="keywords=e.name;reGetZiXun">
-                <img src="../assets/icon-fire.png" v-if="e.fire" alt="">
-                <span class="dib ell">  {{e.name}}</span>
+              <div
+                class="remen-item fjac"
+                v-for="(e, i) in remen"
+                :key="i"
+                @click="
+                  keywords = e.name;
+                  reGetZiXun();
+                "
+              >
+                <img src="../assets/icon-fire.png" v-if="e.fire" alt="" />
+                <span class="dib ell"> {{ e.name }}</span>
               </div>
             </div>
-
           </div>
-
         </div>
         <cube-scroll
-            v-else
+          v-else
           ref="scroll"
           :data="zixun"
           :options="options"
@@ -59,8 +70,8 @@
               <div v-if="zx.type === 'yuanxi'">
                 <router-link
                   :to="{
-                    path: 'zixuncontent',
-                    query: { id: zx.id }
+                    path: 'jianzhanglist',
+                    query: { schoolid: zx.id, schoolname: zx.title }
                   }"
                 >
                   <p class="title f16 fc333" v-html="keywordsreg(zx.title)"></p>
@@ -87,8 +98,8 @@
               <div v-else-if="zx.type === 'zhuanye'">
                 <router-link
                   :to="{
-                    path: 'zixuncontent',
-                    query: { type: zx.type, id: zx.id }
+                    path: 'jianzhanglist',
+                    query: { majorname: zx.title, majorid: zx.id }
                   }"
                 >
                   <p class="title f16 fc333" v-html="keywordsreg(zx.title)"></p>
@@ -110,8 +121,8 @@
               <div v-else-if="zx.type === 'jianzhang'">
                 <router-link
                   :to="{
-                    path: 'zixuncontent',
-                    query: { type: zx.type, id: zx.id }
+                    path: 'jianzhang',
+                    query: { id: zx.id }
                   }"
                 >
                   <p class="title f16 fc333" v-html="keywordsreg(zx.title)"></p>
@@ -168,12 +179,12 @@ export default {
       noresult: false,
       zixun: [],
       remen: [
-        {name:'社会科学院' , fire:true},
-        {name:'纽卡斯尔大学' , fire:true},
-        {name:'约克大学' , fire:true},
-        {name:'拉夫堡大学' , fire:false},
-        {name:'爱丁堡大学' , fire:false},
-        {name:'杜伦大学' , fire:false}
+        { name: "社会科学院", fire: true },
+        { name: "菲律宾国父大学", fire: true },
+        { name: "UMT大学", fire: true },
+        { name: "经济学", fire: false },
+        { name: "马克思主义理论", fire: false },
+        { name: "金融学", fire: false }
       ],
       filters: [
         { value: 0, name: "综合" },
@@ -223,12 +234,14 @@ export default {
       }
     },
     reGetZiXun() {
-      this.y = 0;
-      this.$refs.scroll.scrollTo(0, 0, 300);
-      this.$refs.scroll.refresh();
+      let that = this;
       this.zixun = [];
       this.pageno = 1;
       this.getZiXun();
+      // console.log(that.$refs);
+      that.y = 0;
+      that.$refs.scroll.scrollTo(0, 0, 300);
+      that.$refs.scroll.refresh();
     },
     onPullingDown() {
       setTimeout(() => {
@@ -251,6 +264,12 @@ export default {
     },
     async getZiXun() {
       const that = this;
+      console.table({
+        type: that.filtersResult,
+        keywords: that.keywords,
+        pageno: that.pageno,
+        pagesize: 10
+      });
       let jiami = wjz({
         type: that.filtersResult,
         keywords: that.keywords,
@@ -267,7 +286,7 @@ export default {
           }
         })
         .then(function(response) {
-          console.log(response.data);
+          // console.log(response.data);
           // console.table(response.data.info);
           that.zixun = [...that.zixun, ...response.data.info];
           that.noresult = !that.zixun.length;
@@ -316,9 +335,6 @@ export default {
 .filter-item.active {
   border-bottom: 1px solid #ffc119;
 }
-.banner {
-  width: 100%;
-}
 .zixun-box {
   padding: 3vw;
   border-bottom: 1px solid #e4e4e4;
@@ -339,18 +355,18 @@ export default {
 .scroll-list-wrap {
   height: calc(100vh - 32.5vw);
 }
-.remen-item{
+.remen-item {
   box-sizing: border-box;
   width: 29vw;
   padding: 3vw 0;
   border: 1px solid #e4e4e4;
   margin: 3vw 0;
-  border-radius:3px;
-  img{
+  border-radius: 3px;
+  img {
     width: 11%;
     margin-right: 1vw;
   }
-  .ell{
+  .ell {
     max-width: 80%;
   }
 }

@@ -34,6 +34,13 @@
       >
         <div class="baoming f14 tc">立即报名</div>
       </router-link>
+      <div class="like-box">
+        <div class="dib">
+          <div class="fac" @click="like">
+            <i class="cubeic-like f18" :class="{red:collected}"></i>收藏
+          </div>
+        </div>
+      </div>
       <div class="mt3vw">
         <router-link
           :to="{ path: 'jianzhang', query: { id: previous_page.id } }"
@@ -51,7 +58,7 @@
       style="background: white;position: fixed;bottom: 0;z-index: 1;"
     >
       <div class="fjac footer-item">
-        <div>
+        <div class="clipboardFooter" :data-clipboard-text="url">
           <img
             src="../assets/icon-share-gray.png"
             style="width:3.2075vw;"
@@ -99,13 +106,16 @@
 </template>
 
 <script>
+import ClipboardJS from "clipboard";
 import MyHeader from "../components/MyHeader";
-import MyFooter from "../components/MyFooter";
 export default {
   name: "jianZhang",
-  components: { MyFooter, MyHeader },
+  components: { MyHeader },
   data() {
     return {
+      disable: false,
+      collected: 0,
+      url: window.location.href,
       next_page: {},
       previous_page: {},
       jz_info: {}
@@ -113,21 +123,32 @@ export default {
   },
   mounted() {
     this.getJianZhang();
+    let that = this;
+    let clipboard = new ClipboardJS(".clipboardFooter");
+    clipboard.on("success", function(e) {
+      that.myToast("已复制网址链接到粘贴板")
+      e.clearSelection();
+    });
   },
   computed: {
     jzid() {
       return this.$route.query.id;
     }
+    // url() {
+    //   return window.location.href;
+    // }
   },
   watch: {
     jzid: function(newVal, oldVal) {
       this.getJianZhang();
+      this.url = window.location.href;
     }
   },
   methods: {
     getJianZhang() {
       const that = this;
       let jiami = this.jiami({
+        uid: that.$root.userID,
         id: that.jzid
       });
       this.axios
@@ -139,7 +160,7 @@ export default {
           }
         })
         .then(function(response) {
-          console.log(response.data.info);
+          // console.log(response.data.info);
           that.jz_info = response.data.info.jz_info;
           that.jz_info.content = that.jz_info.content.replace(
             /<table/g,
@@ -149,8 +170,49 @@ export default {
             /<\/table>/g,
             "</table> </div>"
           );
+          that.collected = response.data.info.jz_info.is_favorite;
           that.previous_page = response.data.info.previous_page;
           that.next_page = response.data.info.next_page;
+        })
+        .catch(function(error) {
+          // console.log(error);
+        });
+    },
+    like() {
+      let that = this;
+      if (!that.$root.userID) {
+        that.myToast("请先登录")
+        setTimeout(() => {
+          that.$router.push("login");
+        }, 800);
+        return;
+      }
+      if (this.disable) {
+        return;
+      }
+      this.disable = true;
+      setTimeout(() => {
+        that.disable = false;
+      },1000);
+      let jiami = this.jiami({
+        uid: that.$root.userID,
+        id: that.jzid,
+        type: 1
+      });
+      this.axios
+        .post(
+          "/phalapi/public/?service=App.User.PostCollect",
+          this.qs.stringify({
+            key: jiami.key,
+            info: jiami.value
+          })
+        )
+        .then(function(response) {
+          // console.log(response);
+          that.myToast(response.data.msg)
+          if(response.data.code){
+            that.collected = !that.collected;
+          }
         })
         .catch(function(error) {
           // console.log(error);
@@ -213,5 +275,12 @@ export default {
 .footer-item:nth-of-type(4) {
   background-color: #ea4245;
   color: white;
+}
+.like-box {
+  text-align: right;
+  margin: 3vw 0;
+  padding: 3vw;
+  border-top: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
 }
 </style>

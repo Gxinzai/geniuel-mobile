@@ -22,7 +22,7 @@
             reGetJianZhang();
           "
           :class="[up ? 'active' : '']"
-          >学费高</span
+          >学费低</span
         >
         <span
           class="fc666 f16 triangle down"
@@ -33,7 +33,7 @@
             reGetJianZhang();
           "
           :class="[down ? 'active' : '']"
-          >学费低</span
+          >学费高</span
         >
         <span class="fc666 f16 fac" @click="drawer = !drawer"
           >筛选<img
@@ -79,24 +79,26 @@
                     <p>报名中</p>
                   </div>
                   <div>
-                    <p class="title f14 fac">
+                    <p class="title  fab">
                       <span
-                        class="xiangmu-span"
+                        class="xiangmu-span f14"
                         :class="['xiangmu-span' + jz.xiangmuidnum]"
                       >
                         {{ jz.xiangmuid | xiangmuid }}
                       </span>
-                      {{ jz.title | wordLimit(18) }}
+                      <span class="f15 fc333 tj">
+                        {{ jz.yanjiuid || jz.title }}
+                      </span>
                     </p>
-                    <p class="name tl">
+                    <p class="name tl f14">
                       {{ jz.school_name }} / 专业: {{ jz.major_name }}
                     </p>
                     <div class="span-box tl">
-                      <span class="tc">学费{{ jz.xuefeiid | delete0 }}万</span>
+                      <span class="tc">{{ jz.xuefeiid | delete0 }}万</span>
                       <span class="tc">{{ jz.area_id }}</span>
                       <span class="tc">{{ jz.shoukeid | shoukeid }}</span>
                       <span class="tc"
-                        >学制：{{ jz.xuezhiid | delete0 }}年</span
+                        >{{ jz.xuezhiid | delete0 }}年</span
                       >
                     </div>
                   </div>
@@ -107,7 +109,7 @@
         </cube-scroll>
       </div>
     </div>
-    <my-footer></my-footer>
+    <my-footer :has-black="false"></my-footer>
     <transition name="slide-fade-right">
       <div class="my-drawer df" v-if="drawer">
         <div style="flex: 1" @click="drawer = false" @touchmove.prevent></div>
@@ -381,10 +383,22 @@ export default {
     };
   },
   beforeRouteEnter(to, from, next) {
-    // console.log('to',to)
-    // console.log('from',from)
+    // console.log("to", to);
+    // console.log("from", from);
     next(vm => {
-      if (["schoollist", "majorlist",'zzbs','zzss','tdxl','hzbx','gdyx'].find(x => x === from.name)) {
+      if (
+        [
+          "schoollist",
+          "majorlist",
+          "zzbs",
+          "zzss",
+          "tdxl",
+          "hzbx",
+          "gdyx",
+          "home",
+          "search"
+        ].find(x => x === from.name)
+      ) {
         vm.filterResult.school.name = vm.$route.query.schoolname;
         vm.filterResult.school.value = vm.$route.query.schoolid;
 
@@ -395,17 +409,17 @@ export default {
         vm.filterResult.leixing.value = vm.$route.query.leixingid;
         vm.reGetJianZhang();
       }
-      if (from.name === "home") {
-        vm.filterResult = {
-          shouke: { name: "", value: 0 },
-          leixing: { name: "", value: 0 },
-          school: { name: "", value: 0 },
-          major: { name: "", value: 0 },
-          location: { name: "", value: 0 },
-          xuefei: { name: "", value: 0 }
-        };
-        vm.reGetJianZhang();
-      }
+      // if (from.name === "home") {
+      //   vm.filterResult = {
+      //     shouke: { name: "", value: 0 },
+      //     leixing: { name: "", value: 0 },
+      //     school: { name: "", value: 0 },
+      //     major: { name: "", value: 0 },
+      //     location: { name: "", value: 0 },
+      //     xuefei: { name: "", value: 0 }
+      //   };
+      //   vm.reGetJianZhang();
+      // }
       // 通过 `vm` 访问组件实例
     });
     // 在渲染该组件的对应路由被 confirm 前调用
@@ -555,15 +569,16 @@ export default {
               that.xiangMuClassArr.findIndex(e => e === v.xiangmuid)
             );
           });
-          console.log(response.data.info);
+          // console.log(response.data.info);
           that.jianzhang = [...that.jianzhang, ...response.data.info];
+          // that.jianzhang = Object.freeze([...that.jianzhang, ...response.data.info]);
         })
         .catch(function(error) {
           // console.log(error);
         });
     },
     updateFilter($event) {
-      console.log($event);
+      // console.log($event);
       this.filterResult[this.updateKey] = $event;
     }
   }
@@ -673,16 +688,20 @@ export default {
     }
     span:nth-of-type(1) {
       background: #e1f2fe;
+      color: #679bd2;
     }
     span:nth-of-type(2) {
       background: #ffebea;
+      color: #d57261;
     }
     span:nth-of-type(3) {
       background: #ddf5ed;
+      color: #5eab8d;
     }
     span:nth-of-type(4) {
       /*width: 20vw;*/
       background: #ffefdf;
+      color: #d6a043;
     }
   }
 }
@@ -705,7 +724,7 @@ export default {
 .item {
   box-sizing: border-box;
   width: 29.38%;
-  background: #e5e5e5;
+  background: #f5f5f5;
   color: #666;
   margin: 3vw 0;
   line-height: 8vw;
