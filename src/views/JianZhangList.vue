@@ -97,9 +97,7 @@
                       <span class="tc">{{ jz.xuefeiid | delete0 }}万</span>
                       <span class="tc">{{ jz.area_id }}</span>
                       <span class="tc">{{ jz.shoukeid | shoukeid }}</span>
-                      <span class="tc"
-                        >{{ jz.xuezhiid | delete0 }}年</span
-                      >
+                      <span class="tc">{{ jz.xuezhiid | delete0 }}年</span>
                     </div>
                   </div>
                 </div>
@@ -387,17 +385,18 @@ export default {
     // console.log("from", from);
     next(vm => {
       if (
-        [
-          "schoollist",
-          "majorlist",
-          "zzbs",
-          "zzss",
-          "tdxl",
-          "hzbx",
-          "gdyx",
-          "home",
-          "search"
-        ].find(x => x === from.name)
+        from.name !== "jianzhang"
+        // [
+        //   "schoollist",
+        //   "majorlist",
+        //   "zzbs",
+        //   "zzss",
+        //   "tdxl",
+        //   "hzbx",
+        //   "gdyx",
+        //   "home",
+        //   "search"
+        // ].find(x => x === from.name)
       ) {
         vm.filterResult.school.name = vm.$route.query.schoolname;
         vm.filterResult.school.value = vm.$route.query.schoolid;
@@ -428,24 +427,10 @@ export default {
   },
   mounted() {
     this.getFilters();
-    this.getJianZhang();
-
-    // if (JSON.stringify(this.$route.query) === "{}") {
-    //   console.log(1)
-    //   this.getJianZhang();
-    // }
-    // console.log( this.$route)
+    // this.getJianZhang();
   },
   activated() {
     this.moveY();
-    // if (JSON.stringify(this.$route.query) !== "{}") {
-    // this.filterResult.school.value = this.$route.query.schoolid;
-    // this.filterResult.major.value = this.$route.query.majorid;
-    // this.filterResult.school.name = this.$route.query.schoolname;
-    // this.filterResult.major.name = this.$route.query.majorname;
-    // this.reGetJianZhang()
-    // }
-    // console.log( this.$router)
   },
   computed: {
     closeBox() {

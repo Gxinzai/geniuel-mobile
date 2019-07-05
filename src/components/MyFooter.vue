@@ -17,7 +17,7 @@
     <transition>
       <div
         class="df"
-        style="background: #FFD019;position: fixed;bottom: 0;z-index: 1;"
+        style="background: #FFD019;position: fixed;bottom: 0;z-index: 2;"
       >
         <div class="fjac footer-item">
           <div>

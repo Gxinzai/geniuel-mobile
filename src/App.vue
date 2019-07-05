@@ -38,6 +38,9 @@ body.noscroll {
 .lh18 {
   line-height: 4.8vw;
 }
+.lh20 {
+  line-height: 5.33vw;
+}
 .lh24 {
   line-height: 6.4vw;
 }
@@ -99,9 +102,6 @@ body.noscroll {
 .fww {
   flex-wrap: wrap;
 }
-.h0 {
-  height: 0 !important;
-}
 .b {
   font-weight: bold;
 }
@@ -141,6 +141,12 @@ body.noscroll {
 .pct50 {
   width: 50%;
 }
+.pct100 {
+  width: 100%;
+}
+.ti2 {
+  text-indent: 2em;
+}
 .bb1 {
   border-bottom: 1px solid #e4e4e4;
 }
@@ -148,6 +154,13 @@ body.noscroll {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+.h0 {
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
 }
 .h1 {
   margin-top: 6vw;
@@ -213,6 +226,23 @@ body.noscroll {
 .cube-form-group-legend {
   display: none;
 }
+.table-responsive {
+  width: 100% !important;
+  height: auto !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+table,
+table tr th,
+table tr td {
+  border: 1px solid #eee;
+} /*设置边框*/
+table {
+  td {
+    /*white-space: nowrap;*/
+  }
+}
 .zhengwen {
   a {
     color: #666 !important;
@@ -225,26 +255,9 @@ body.noscroll {
     height: auto !important;
     object-fit: contain;
   }
-  .table-responsive {
-    width: 100% !important;
-    height: auto !important;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-  }
   strong {
     display: block;
     color: rgba(255, 12, 12, 1);
-  }
-  table,
-  table tr th,
-  table tr td {
-    border: 1px solid #eee;
-  } /*设置边框*/
-  table {
-    td {
-      /*white-space: nowrap;*/
-    }
   }
 }
 .login {
@@ -258,21 +271,21 @@ body.noscroll {
     border-radius: 20px;
     padding: 0;
   }
-  .login-form{
-    .cube-form-item:last-child{
+  .login-form {
+    .cube-form-item:last-child {
       padding-bottom: 15px !important;
     }
   }
 }
-.cube-scroll-nav-bar_horizontal .cube-scroll-nav-bar-items{
-  background: rgba(0,0,0,0.6);
+.cube-scroll-nav-bar_horizontal .cube-scroll-nav-bar-items {
+  background: rgba(0, 0, 0, 0.6);
 }
-.cube-scroll-nav-bar-item{
+.cube-scroll-nav-bar-item {
   color: white;
   padding: 15px;
 }
-.cube-scroll-nav-bar-item_active{
-  color: #FFCC01;
+.cube-scroll-nav-bar-item_active {
+  color: #ffcc01;
 }
 </style>
 <script>

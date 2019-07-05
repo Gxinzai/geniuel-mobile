@@ -156,18 +156,60 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "collection" */ "./views/collection.vue")
     },
-    {
-      path: "/demo",
-      name: "demo",
-      component: () =>
-        import(/* webpackChunkName: "search" */ "./views/Demo.vue")
-    },
+    // {
+    //   path: "/demo",
+    //   name: "demo",
+    //   component: () =>
+    //     import(/* webpackChunkName: "search" */ "./views/Demo.vue")
+    // },
     {
       path: "/about",
       name: "about",
       meta: { zn: "关于我们" },
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/About.vue")
+    },
+    {
+      path: "/zhuantilist",
+      name: "zhuantilist",
+      meta: { zn: "全部专题" },
+      component: () =>
+        import(/* webpackChunkName: "zhuanti" */ "./zhuanti/ZhuanTiList.vue")
+    },
+    {
+      path: "/ssbktj",
+      name: "ssbktj",
+      meta: { zn: "正文", bread: [{ name: "专题", path: "zixunlist" }] },
+      component: () =>
+        import(/* webpackChunkName: "zhuanti" */ "./zhuanti/ssbktj.vue")
+    },
+    {
+      path: "/yjsqb",
+      name: "yjsqb",
+      meta: { zn: "正文", bread: [{ name: "专题", path: "zixunlist" }] },
+      component: () =>
+        import(/* webpackChunkName: "zhuanti" */ "./zhuanti/yjsqb.vue")
+    },
+    {
+      path: "/yjsbklc",
+      name: "yjsbklc",
+      meta: { zn: "正文", bread: [{ name: "专题", path: "zixunlist" }] },
+      component: () =>
+        import(/* webpackChunkName: "zhuanti" */ "./zhuanti/yjsbklc.vue")
+    },
+    {
+      path: "/yjsxlxwqb",
+      name: "yjsxlxwqb",
+      meta: { zn: "正文", bread: [{ name: "专题", path: "zixunlist" }] },
+      component: () =>
+        import(/* webpackChunkName: "zhuanti" */ "./zhuanti/yjsxlxwqb.vue")
+    },
+    {
+      path: "/zzyjs",
+      name: "zzyjs",
+      meta: { zn: "正文", bread: [{ name: "专题", path: "zixunlist" }] },
+      component: () =>
+        import(/* webpackChunkName: "zhuanti" */ "./zhuanti/zzyjs.vue")
     }
   ],
   scrollBehavior(to, from, savedPosition) {

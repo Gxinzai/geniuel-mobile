@@ -61,19 +61,19 @@
         <div class="nav-item fjac">
           <router-link to="/schoollist">
             <img src="../assets/index-icon-6.png" style="width: 7.2vw;" />
-            <p>院校选择</p>
+            <p>院校库</p>
           </router-link>
         </div>
         <div class="nav-item fjac">
           <router-link to="/majorlist">
             <img src="../assets/index-icon-7.png" style="width: 5.87vw;" />
-            <p>专业选择</p>
+            <p>专业库</p>
           </router-link>
         </div>
         <div class="nav-item fjac">
           <router-link to="/jianzhanglist">
             <img src="../assets/index-icon-8.png" style="width:8.8vw;" />
-            <p>简章选择</p>
+            <p>简章库</p>
           </router-link>
         </div>
         <div class="nav-item fjac">
@@ -233,21 +233,21 @@
     <div>
       <p class="h1 f18 fjac">报考指南</p>
       <p class=" h2">
-        <router-link class="db grayFont" to="zixunlist">
+        <router-link class="db grayFont" to="zhuantilist">
           << 点击查看更多
         </router-link>
       </p>
       <div style="padding-bottom: 2vw;">
         <div class=" guide-item" v-for="(n, index) in baokao" :key="index">
-          <router-link
-            class="db fac"
-            :to="{
-              path: '/zixuncontent',
-              query: { id: n.url.match(/\d+(?=\.html)/g)[0], type: 'zixun' }
-            }"
-          >
-            <img v-if="index===1" src="../assets/ztad01.png" />
-            <img v-if="index===0" src="../assets/ztad02.png" />
+          <!--<router-link-->
+          <!--class="db fac"-->
+          <!--:to="{-->
+          <!--path: '/zixuncontent',-->
+          <!--query: { id: n.url.match(/\d+(?=\.html)/g)[0], type: 'zixun' }-->
+          <!--}"-->
+          <!--&gt;-->
+          <router-link class="db fac" :to="n.view">
+            <img :src="n.thumb" alt="">
             <div class="p3vw">
               <p class="tl ell f14 fc333 b">{{ n.title }}</p>
               <p class="tj fc666">
@@ -255,9 +255,6 @@
               </p>
             </div>
           </router-link>
-          <!--<a class="fac" :href="n.url">-->
-
-          <!--</a>-->
         </div>
       </div>
     </div>
@@ -275,6 +272,7 @@ export default {
   },
   data() {
     return {
+      zhuanti1:'zzyjs',
       banner: [
         // {
         //   url: "http://www.didichuxing.com/",
