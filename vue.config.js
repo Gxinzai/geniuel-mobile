@@ -1,4 +1,3 @@
-// const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 module.exports = {
   css: {
     loaderOptions: {

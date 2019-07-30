@@ -37,7 +37,7 @@ import MyFooter from "../components/MyFooter";
 import MyHeader from "../components/MyHeader";
 export default {
   name: "BaoMing",
-  components: {MyHeader, MyFooter },
+  components: { MyHeader, MyFooter },
   data() {
     return {
       validity: {},
@@ -176,8 +176,26 @@ export default {
       // console.log("submit", e);
       // console.log("rsult", this.model);
       const that = this;
-      const {school,username,sex,phone,email,xueli,area,beizhu} = that.model
-      let jiami = this.jiami({school,username,sex,phone,email,xueli,area,beizhu});
+      const {
+        school,
+        username,
+        sex,
+        phone,
+        email,
+        xueli,
+        area,
+        beizhu
+      } = that.model;
+      let jiami = this.jiami({
+        school,
+        username,
+        sex,
+        phone,
+        email,
+        xueli,
+        area,
+        beizhu
+      });
       // console.log(jiami)
       this.axios
         .post(
@@ -189,9 +207,7 @@ export default {
         )
         .then(function(response) {
           // console.log(response.data.msg);
-          that.myToast(response.data.msg)
-
-
+          that.myToast(response.data.msg);
         })
         .catch(function(error) {
           // console.log(error);
@@ -213,7 +229,7 @@ export default {
 </script>
 
 <style scoped>
-.h1{
+.h1 {
   margin-bottom: 6vw;
 }
 .cube-form-group-legend {

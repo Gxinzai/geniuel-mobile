@@ -232,7 +232,7 @@ export default {
           )
           .then(function(response) {
             // console.log(response);
-            that.myToast(response.data.msg)
+            that.myToast(response.data.msg);
             if (response.data.code) {
               that.send = true;
               that.authTime = 60;
@@ -249,8 +249,7 @@ export default {
             // console.log(error);
           });
       } else {
-        that.myToast("请输入正确的手机号码")
-
+        that.myToast("请输入正确的手机号码");
       }
     },
     changeTabBar(i) {
@@ -276,7 +275,7 @@ export default {
         )
         .then(function(response) {
           // console.log(response);
-          that.myToast(response.data.msg)
+          that.myToast(response.data.msg);
           if (response.data.code) {
             // console.log(response.data.info.uid);
             that.$root.userID = response.data.info.uid;
@@ -312,7 +311,7 @@ export default {
         )
         .then(function(response) {
           // console.log(response);
-          that.myToast(response.data.msg)
+          that.myToast(response.data.msg);
 
           if (response.data.code) {
             // console.log(response.data.info.uid);

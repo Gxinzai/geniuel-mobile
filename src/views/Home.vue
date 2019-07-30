@@ -112,8 +112,12 @@
         </cube-slide-item>
       </cube-slide>
     </div>
-    <router-link to="kuaisu" class="db" style="padding: 5vw 3vw 3vw;border-top: 1px solid #e4e4e4">
-      <img src="../assets/kuaisu.png" style="width: 94.4vw" alt="">
+    <router-link
+      to="kuaisu"
+      class="db"
+      style="padding: 5vw 3vw 3vw;border-top: 1px solid #e4e4e4"
+    >
+      <img src="../assets/kuaisu.png" style="width: 94.4vw" alt="" />
     </router-link>
     <div class="big-hr"></div>
     <div>
@@ -250,7 +254,7 @@
           <!--}"-->
           <!--&gt;-->
           <router-link class="db fac" :to="n.view">
-            <img :src="n.thumb" alt="">
+            <img :src="n.thumb" alt="" />
             <div class="p3vw">
               <p class="tl ell f14 fc333 b">{{ n.title }}</p>
               <p class="tj fc666">
@@ -275,7 +279,7 @@ export default {
   },
   data() {
     return {
-      zhuanti1:'zzyjs',
+      zhuanti1: "zzyjs",
       banner: [
         // {
         //   url: "http://www.didichuxing.com/",

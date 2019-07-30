@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div
-        class="filter fc666" v-if="!enable">
+    <div class="filter fc666" v-if="!enable">
       {{ content }}
     </div>
     <div
@@ -22,7 +21,7 @@
             @click="choose(item)"
           >
             <!--{{ item.name.substring(0,4)}}-->
-            {{ item.name}}
+            {{ item.name }}
           </div>
           <div class="item h0"></div>
           <div class="item h0"></div>
@@ -41,7 +40,7 @@ export default {
     modal: null,
     enable: {
       type: Boolean,
-      default: true,
+      default: true
     },
     filters: {
       type: Array
@@ -56,7 +55,7 @@ export default {
     return {
       open: false,
       resultName: "",
-      resultValue:''
+      resultValue: ""
     };
   },
   watch: {

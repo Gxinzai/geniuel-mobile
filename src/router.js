@@ -156,12 +156,6 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "collection" */ "./views/collection.vue")
     },
-    // {
-    //   path: "/demo",
-    //   name: "demo",
-    //   component: () =>
-    //     import(/* webpackChunkName: "search" */ "./views/Demo.vue")
-    // },
     {
       path: "/about",
       name: "about",
