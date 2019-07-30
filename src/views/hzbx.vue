@@ -6,7 +6,7 @@
     </div>
     <div class="zzbs" style="height: calc(100vh - 22.5vw);" v-else>
       <cube-scroll-nav @change="changeHandler" ref="scroll">
-        <cube-scroll-nav-panel :label="'①'+liucheng[0]">
+        <cube-scroll-nav-panel :label="'①' + liucheng[0]">
           <router-link
             class="db"
             :to="{ path: '/jianzhang', query: { id: 3430 } }"
@@ -38,7 +38,7 @@
           <div class="big-hr"></div>
         </cube-scroll-nav-panel>
 
-        <cube-scroll-nav-panel :label="'②'+liucheng[1]">
+        <cube-scroll-nav-panel :label="'②' + liucheng[1]">
           <div class="h1 f18 fjac">报名资料</div>
           <div class="html p3vw" v-html="project_info.baoming"></div>
           <div class="big-hr mt3vw"></div>
@@ -47,7 +47,7 @@
           <div class="big-hr mt3vw"></div>
         </cube-scroll-nav-panel>
 
-        <cube-scroll-nav-panel :label="'③'+liucheng[2]">
+        <cube-scroll-nav-panel :label="'③' + liucheng[2]">
           <div class="h1 f18 fjac">学位授予</div>
           <div class="html p3vw" v-html="project_info.xuewei"></div>
           <div class="big-hr mt3vw"></div>
@@ -79,7 +79,7 @@
           </div>
           <div class="big-hr mt3vw"></div>
         </cube-scroll-nav-panel>
-        <cube-scroll-nav-panel :label="'④'+liucheng[3]">
+        <cube-scroll-nav-panel :label="'④' + liucheng[3]">
           <div class="h1 f18 fjac">推荐院校</div>
           <ul class="p3vw school fjsb fww">
             <li v-for="(e, i) in project_info.hot_school" :key="i">
@@ -110,7 +110,7 @@
           </div>
           <div class="big-hr mt3vw"></div>
         </cube-scroll-nav-panel>
-        <cube-scroll-nav-panel :label="'⑤'+liucheng[4]">
+        <cube-scroll-nav-panel :label="'⑤' + liucheng[4]">
           <div class="h1 f18 fjac">推荐专业</div>
           <ul class="p3vw major fjsb fww">
             <li v-for="(e, i) in project_info.hot_zy" :key="i">
@@ -138,7 +138,7 @@
           </div>
           <div class="big-hr mt3vw"></div>
         </cube-scroll-nav-panel>
-        <cube-scroll-nav-panel :label="'⑥'+liucheng[5]">
+        <cube-scroll-nav-panel :label="'⑥' + liucheng[5]">
           <div class="h1 f18 fjac">推荐简章</div>
           <ul class="p3vw lunwen">
             <li class="fac" v-for="(e, i) in project_info.hot_jz" :key="i">
@@ -187,6 +187,28 @@ export default {
   },
   mounted() {
     this.getInfo();
+  },
+  beforeRouteEnter(to, from, next) {
+    // console.log("to", to);
+    // console.log("from", from);
+    next(vm => {
+      if (from.name === "home") {
+        // console.log("re");
+        vm.getInfo();
+        vm.$refs.scroll.$refs.scroll.scrollTo(0, 0, 100);
+        vm.$refs.scroll.$refs.scroll.refresh();
+      } else {
+        console.log(vm.$refs.scroll.$refs.scroll);
+        vm.$refs.scroll.$refs.scroll.scrollTo(0, vm.y, 300);
+        vm.$refs.scroll.$refs.scroll.refresh();
+      }
+    });
+  },
+  beforeRouteLeave(to, from, next) {
+    // console.log(this.$refs.scroll.scrollY);
+    this.y = -this.$refs.scroll.scrollY;
+    // this.current = this.$refs.scroll.stickyCurrent;
+    next();
   },
   methods: {
     getInfo() {
@@ -260,8 +282,8 @@ export default {
         display: inline-block;
       }
     }
-    .ell{
-      padding-left:1vw;
+    .ell {
+      padding-left: 1vw;
     }
   }
   .school {

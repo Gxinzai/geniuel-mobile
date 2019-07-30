@@ -1,9 +1,14 @@
 <template>
   <div>
     <div
+        class="filter fc666" v-if="!enable">
+      {{ content }}
+    </div>
+    <div
       class="filter fc666"
       :class="[open ? 'open' : 'close']"
       @click="change"
+      v-else
     >
       {{ resultName ? resultName : content }}
     </div>
@@ -16,7 +21,8 @@
             :key="index"
             @click="choose(item)"
           >
-            {{ item.name.substring(0,4)}}
+            <!--{{ item.name.substring(0,4)}}-->
+            {{ item.name}}
           </div>
           <div class="item h0"></div>
           <div class="item h0"></div>
@@ -33,9 +39,12 @@ export default {
   props: {
     propA: Number,
     modal: null,
+    enable: {
+      type: Boolean,
+      default: true,
+    },
     filters: {
-      type: Array,
-      required: true
+      type: Array
     },
     content: {
       type: null,

@@ -1,3 +1,4 @@
+// const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 module.exports = {
   css: {
     loaderOptions: {
@@ -7,9 +8,8 @@ module.exports = {
       }
     }
   },
-
   pluginOptions: {
-    'cube-ui': {
+    "cube-ui": {
       postCompile: false,
       theme: false
     }
@@ -22,6 +22,6 @@ module.exports = {
   outputDir: undefined,
   assetsDir: undefined,
   runtimeCompiler: undefined,
-  productionSourceMap: undefined,
+  productionSourceMap: false,
   parallel: undefined
-}
+};

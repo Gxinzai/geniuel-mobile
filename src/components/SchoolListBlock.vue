@@ -10,13 +10,9 @@
         <div class="arrow down" :class="[filter ? 'up' : 'down']"></div>
       </div>
       <transition-group name="slide-fade">
-        <div
-          v-for="(item, index) in school"
-          :key="index"
-          v-show="!filter"
-          @click="goSchool()"
-        >
+        <div v-for="(item, index) in school" :key="index" v-show="!filter" class="bbe">
           <router-link
+            v-if="item.jz_num"
             class="dib fac school-container"
             :to="{
               path: 'jianzhanglist',
@@ -46,6 +42,26 @@
               <p class="grayFont">{{ item.jz_num }}篇简章</p>
             </div>
           </router-link>
+          <router-link
+            v-else
+            class="dib fac school-container"
+            :to="{
+              path: 'kuaisujz',
+              query: { id: item.id, schoolname: item.title, type: type }
+            }"
+          >
+            <img
+              v-lazy="item.thumb"
+              :key="item.thumb"
+              class="school-logo"
+              alt=""
+            />
+            <div class="tl">
+              <p class="fac t">
+                <span class="f16 fc666">{{ item.title }}</span>
+              </p>
+            </div>
+          </router-link>
         </div>
       </transition-group>
     </div>
@@ -57,16 +73,15 @@ export default {
   name: "SchoolListBlock",
   props: {
     location: String,
-    school: null
+    school: null,
+    type: null
   },
   data() {
     return {
       filter: false
     };
   },
-  methods: {
-    goSchool() {}
-  }
+  methods: {}
 };
 </script>
 
@@ -91,7 +106,7 @@ export default {
     margin-bottom: 1vw;
   }
 }
-.school-container + .school-container {
+.bbe + .bbe {
   border-top: 1px solid #e4e4e4;
 }
 .school-logo {

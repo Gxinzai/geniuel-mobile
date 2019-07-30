@@ -19,3 +19,7 @@ Vue.filter("shoukeid", function(arr) {
 Vue.filter("xiangmuid", function(str) {
   return str === "高端研修" ? "研" : str.slice(0, 1);
 });
+Vue.filter("kuaisujz", function(num) {
+  let arr = ["", "博士项目", "在职硕士", "研修班", "出国留学"];
+  return arr[Number(num)];
+});

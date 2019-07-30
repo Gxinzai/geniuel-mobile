@@ -3,7 +3,7 @@
     <my-header></my-header>
     <div class="input-box df">
       <input
-        class="input f16"
+        class="input f14"
         v-model="keywords"
         placeholder="输入搜索关键词"
         type="text"
@@ -163,7 +163,7 @@
         </cube-scroll>
       </div>
     </div>
-    <my-footer></my-footer>
+    <my-footer :has-black="false"></my-footer>
   </div>
 </template>
 
@@ -264,12 +264,12 @@ export default {
     },
     async getZiXun() {
       const that = this;
-      console.table({
-        type: that.filtersResult,
-        keywords: that.keywords,
-        pageno: that.pageno,
-        pagesize: 10
-      });
+      // console.table({
+      //   type: that.filtersResult,
+      //   keywords: that.keywords,
+      //   pageno: that.pageno,
+      //   pagesize: 10
+      // });
       let jiami = wjz({
         type: that.filtersResult,
         keywords: that.keywords,

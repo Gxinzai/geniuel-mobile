@@ -32,8 +32,6 @@ export default {
     return {};
   },
   mounted() {
-    // console.log(this.$route.meta.zn)
-    // console.log(this.$router.currentRoute.meta.zn)
   }
 };
 </script>

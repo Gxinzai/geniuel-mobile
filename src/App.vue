@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive exclude="ZiXun,zzbs,hzbx,jianZhang,BaoMing,register">
+    <keep-alive exclude="ZiXun,jianZhang,BaoMing,register">
       <router-view />
     </keep-alive>
   </div>
@@ -240,7 +240,7 @@ table tr td {
 } /*设置边框*/
 table {
   td {
-    /*white-space: nowrap;*/
+    white-space: nowrap;
   }
 }
 .zhengwen {
@@ -286,6 +286,13 @@ table {
 }
 .cube-scroll-nav-bar-item_active {
   color: #ffcc01;
+}
+//在职博士 ScrollNav 组件滚动状态微调
+.cube-scroll-nav-main .cube-sticky-ele {
+  height: 44px !important;
+}
+.cube-scroll-nav-panel .cube-sticky-ele {
+  height: 0 !important;
 }
 </style>
 <script>

@@ -170,6 +170,34 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
+      path: "/kuaisu",
+      name: "kuaisu",
+      meta: { zn: "快速导航" },
+      component: () =>
+        import(/* webpackChunkName: "kuaisu" */ "./views/KuaiSu.vue")
+    },
+    {
+      path: "/kuaisuschool",
+      name: "kuaisuschool",
+      meta: { zn: "院校选择", bread: [{ name: "快速导航", path: "kuaisu" }] },
+      component: () =>
+        import(/* webpackChunkName: "kuaisu" */ "./views/KuaiSuSchool.vue")
+    },
+    {
+      path: "/kuaisuchuguo",
+      name: "kuaisuchuguo",
+      meta: { zn: "出国留学", bread: [{ name: "快速导航", path: "kuaisu" }] },
+      component: () =>
+        import(/* webpackChunkName: "kuaisu" */ "./views/KuaiSuChuGuo.vue")
+    },
+    {
+      path: "/kuaisujz",
+      name: "kuaisujz",
+      meta: { zn: "简章选择", bread: [{ name: "快速导航", path: "kuaisu" }] },
+      component: () =>
+        import(/* webpackChunkName: "kuaisu" */ "./views/KuaiSuJZ.vue")
+    },
+    {
       path: "/zhuantilist",
       name: "zhuantilist",
       meta: { zn: "全部专题" },
@@ -179,35 +207,35 @@ export default new Router({
     {
       path: "/ssbktj",
       name: "ssbktj",
-      meta: { zn: "正文", bread: [{ name: "专题", path: "zixunlist" }] },
+      meta: { zn: "正文", bread: [{ name: "专题", path: "zhuantilist" }] },
       component: () =>
         import(/* webpackChunkName: "zhuanti" */ "./zhuanti/ssbktj.vue")
     },
     {
       path: "/yjsqb",
       name: "yjsqb",
-      meta: { zn: "正文", bread: [{ name: "专题", path: "zixunlist" }] },
+      meta: { zn: "正文", bread: [{ name: "专题", path: "zhuantilist" }] },
       component: () =>
         import(/* webpackChunkName: "zhuanti" */ "./zhuanti/yjsqb.vue")
     },
     {
       path: "/yjsbklc",
       name: "yjsbklc",
-      meta: { zn: "正文", bread: [{ name: "专题", path: "zixunlist" }] },
+      meta: { zn: "正文", bread: [{ name: "专题", path: "zhuantilist" }] },
       component: () =>
         import(/* webpackChunkName: "zhuanti" */ "./zhuanti/yjsbklc.vue")
     },
     {
       path: "/yjsxlxwqb",
       name: "yjsxlxwqb",
-      meta: { zn: "正文", bread: [{ name: "专题", path: "zixunlist" }] },
+      meta: { zn: "正文", bread: [{ name: "专题", path: "zhuantilist" }] },
       component: () =>
         import(/* webpackChunkName: "zhuanti" */ "./zhuanti/yjsxlxwqb.vue")
     },
     {
       path: "/zzyjs",
       name: "zzyjs",
-      meta: { zn: "正文", bread: [{ name: "专题", path: "zixunlist" }] },
+      meta: { zn: "正文", bread: [{ name: "专题", path: "zhuantilist" }] },
       component: () =>
         import(/* webpackChunkName: "zhuanti" */ "./zhuanti/zzyjs.vue")
     }

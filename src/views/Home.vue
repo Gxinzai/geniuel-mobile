@@ -112,6 +112,9 @@
         </cube-slide-item>
       </cube-slide>
     </div>
+    <router-link to="kuaisu" class="db" style="padding: 5vw 3vw 3vw;border-top: 1px solid #e4e4e4">
+      <img src="../assets/kuaisu.png" style="width: 94.4vw" alt="">
+    </router-link>
     <div class="big-hr"></div>
     <div>
       <p class="h1 f18 fjac">在职研究生·专题推荐</p>

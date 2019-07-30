@@ -3,7 +3,7 @@
     <my-header></my-header>
     <div class="grayBg">
       <div class="fjsb fww p3vw mt3vw">
-        <router-link class="db box" :to="e.view" v-for="(e, i) in list" :key="i" v-show="e.id!=='4'">
+        <router-link class="db box" :to="e.view" v-for="(e, i) in list" :key="i">
           <img :src="e.thumb" alt="" />
           <p class="fc666 lh24 ell f12">{{ e.title }}</p>
         </router-link>

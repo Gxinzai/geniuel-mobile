@@ -134,9 +134,6 @@ export default {
     jzid() {
       return this.$route.query.id;
     }
-    // url() {
-    //   return window.location.href;
-    // }
   },
   watch: {
     jzid: function(newVal, oldVal) {
