@@ -258,7 +258,7 @@
             <div class="p3vw">
               <p class="tl ell f14 fc333 b">{{ n.title }}</p>
               <p class="tj fc666">
-                {{ n.remark | wordLimit(35) }}
+                {{ n.remark}}
               </p>
             </div>
           </router-link>
@@ -423,8 +423,17 @@ export default {
   .tl {
     margin-bottom: 5px;
   }
+  // 超出两行显示省略号
   .tj {
     padding-right: 3vw;
+	height: 24px;
+	overflow: hidden;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display:-webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
   }
 }
 .guide-item + .guide-item {

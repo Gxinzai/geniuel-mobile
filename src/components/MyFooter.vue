@@ -123,7 +123,7 @@ export default {
   a {
     color: white;
   }
-}
+}	
 .footer-item + .footer-item {
   border-left: 1px solid white;
 }

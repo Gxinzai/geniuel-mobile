@@ -69,30 +69,29 @@
             >
               <div v-if="zx.type === 'yuanxi'">
                 <router-link
+				 class="fac school-container"
                   :to="{
                     path: 'jianzhanglist',
                     query: { schoolid: zx.id, schoolname: zx.title }
                   }"
                 >
-                  <p class="title f16 fc333" v-html="keywordsreg(zx.title)"></p>
-                  <div class="df fac">
-                    <img :src="zx.thumb" class="thumb" alt="" />
-                    <div class="fc666 lh24 ">
-                      <p>
-                        <span
-                          >学费：<span class="red">{{ zx.price }}</span></span
-                        >
-                        &emsp;&emsp;
-                        <span
-                          >简章：<span class="red">{{ zx.jz_num }}</span
-                          >篇</span
-                        >
-                      </p>
-                      <p class=" ">
-                        地址：<span v-html="keywordsreg(zx.address)"></span>
-                      </p>
-                    </div>
-                  </div>
+				 <img :src="zx.thumb" class="school-logo" alt="" />
+				 <div class="tl">
+					 <p class="fac t">
+					   <span class="title f16 fc333" v-html="keywordsreg(zx.title)"></span>
+					  <!-- <span
+					    class="brand brand-211 whiteFont"
+					    v-if="zx.school_attribute.includes('211')"
+					    >211</span
+					  >
+					  <span
+					    class="brand brand-985 whiteFont"
+					    v-if="zx.school_attribute.includes('985')"
+					    >985</span
+					  > -->
+					</p> 
+					 <p class="grayFont">{{ zx.jz_num }}篇简章</p>
+				 </div>      
                 </router-link>
               </div>
               <div v-else-if="zx.type === 'zhuanye'">
@@ -125,7 +124,7 @@
                     query: { id: zx.id }
                   }"
                 >
-                  <p class="title f16 fc333" v-html="keywordsreg(zx.title)"></p>
+                  <p class="title f16 fc333 ell" v-html="keywordsreg(zx.title)"></p>
                   <div
                     class="remark fc666 lh18 "
                     v-html="zx.remark.slice(0, 50) + '...'"
@@ -147,12 +146,12 @@
                     query: { type: zx.type, id: zx.id }
                   }"
                 >
-                  <p class="title f16 fc333" v-html="keywordsreg(zx.title)"></p>
+                  <p class="title f16 fc333 ell" v-html="keywordsreg(zx.title)"></p>
                   <div class="df fac">
                     <img :src="zx.thumb" class="thumb" v-if="zx.thumg" alt="" />
                     <div
                       class="remark fc666 lh18 "
-                      v-html="zx.remark.slice(0, 50) + '...'"
+                      v-html="zx.remark"
                     ></div>
                   </div>
                   <p class="time grayFont">{{ zx.addtime }}</p>
@@ -187,9 +186,9 @@ export default {
         { name: "金融学", fire: false }
       ],
       filters: [
-        { value: 0, name: "综合" },
+        // { value: 0, name: "综合" },
         { value: 1, name: "院校" },
-        { value: 2, name: "专业" },
+        // { value: 2, name: "专业" },
         { value: 3, name: "简章" },
         { value: 4, name: "资讯" }
       ],
@@ -340,10 +339,16 @@ export default {
   border-bottom: 1px solid #e4e4e4;
 }
 .title {
+  height: 16px;
   margin-bottom: 2vw;
 }
 .remark {
-  margin-bottom: 2vw;
+	 height: 36px;
+	 margin-bottom: 2vw;
+	 overflow: hidden;
+	 display: -webkit-box;
+	 -webkit-line-clamp: 2;
+	 -webkit-box-orient: vertical;
 }
 .time {
   margin-bottom: 1vw;
@@ -370,6 +375,32 @@ export default {
     max-width: 80%;
   }
 }
-.ads {
+// 新改页面
+.tl {
+    text-align: left;
 }
+.school-container{
+	padding: 3vw;
+}
+.school-logo {
+  width: 9.6vw;
+  height: 9.6vw;
+  object-fit: contain;
+  margin-right: 3vw;
+}
+.brand {
+  display: inline-block;
+  width: 7.2vw;
+  line-height: 3.6vw;
+  border-radius: 3px;
+  text-align: center;
+  margin-left: 2vw;
+}
+.brand-211 {
+  background: #4f99dc;
+}
+.brand-985 {
+  background: #e65757;
+}
+
 </style>
