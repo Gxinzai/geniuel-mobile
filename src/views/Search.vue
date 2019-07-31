@@ -79,7 +79,7 @@
 				 <div class="tl">
 					 <p class="fac t">
 					   <span class="title f16 fc333" v-html="keywordsreg(zx.title)"></span>
-					  <!-- <span
+					  <span
 					    class="brand brand-211 whiteFont"
 					    v-if="zx.school_attribute.includes('211')"
 					    >211</span
@@ -88,7 +88,7 @@
 					    class="brand brand-985 whiteFont"
 					    v-if="zx.school_attribute.includes('985')"
 					    >985</span
-					  > -->
+					  >
 					</p> 
 					 <p class="grayFont">{{ zx.jz_num }}篇简章</p>
 				 </div>      
@@ -117,26 +117,55 @@
                   >
                 </p>
               </div>
-              <div v-else-if="zx.type === 'jianzhang'">
+              <div v-else-if="zx.type === 'jianzhang'" class="jianzhang-b df">
                 <router-link
-                  :to="{
+				  class="df"
+                  :to="{				
                     path: 'jianzhang',
                     query: { id: zx.id }
                   }"
                 >
-                  <p class="title f16 fc333 ell" v-html="keywordsreg(zx.title)"></p>
-                  <div
+				<div class="df" style="float: left;">
+					 <div class="img-box">
+					  <img v-lazy="zx.school_logo" alt="" />
+					  <p>报名中</p>
+					</div>
+				</div>
+				<div style="float: right;">
+					 <p class="title  fab">
+					  <span
+					    class="xiangmu-span f14"
+					    :class="['xiangmu-span' + zx.xiangmuidnum]"
+					  >
+					    {{ zx.xiangmuid | xiangmuid }}
+					  </span>
+					  <span class="f15 fc333 tj">
+					    {{ zx.yanjiuid || zx.title }}
+					  </span>
+					</p>
+					 <p class="name tl f14">
+					  {{ zx.school_name }} / 专业: {{ zx.major_name }}
+					</p>
+					 <div class="span-box tl">
+					  <span class="tc">{{ zx.xuefeiid | delete0 }}万</span>
+					  <span class="tc">{{ zx.area_name }}</span>
+					  <span class="tc">{{ zx.shoukeid | shoukeid }}</span>
+					  <span class="tc">{{ zx.xuezhiid | delete0 }}年</span>
+					</div>
+				</div>
+                  <!-- <p class="title f16 fc333 ell" v-html="keywordsreg(zx.title)"></p> -->
+                  <!-- <div
                     class="remark fc666 lh18 "
                     v-html="zx.remark.slice(0, 50) + '...'"
-                  ></div>
-                  <p class="time fc999">
+                  ></div> -->
+                 <!-- <p class="time fc999">
                     <span>专业：{{ zx.major_name }}</span> &emsp;
                     <span>学费：{{ zx.xuefeiid | delete0 }}万</span> &emsp;
                     <span>学制：{{ zx.xuezhiid | delete0 }}年</span> &emsp;
                     <span
                       >地区：<span v-html="keywordsreg(zx.area_name)"></span
                     ></span>
-                  </p>
+                  </p> -->
                 </router-link>
               </div>
               <div v-else>
@@ -192,6 +221,18 @@ export default {
         { value: 3, name: "简章" },
         { value: 4, name: "资讯" }
       ],
+	   xiangMuClassArr: [
+	    "同等学力硕士",
+	    "专业学位硕士",
+	    "合作办学",
+	    "高端研修",
+	    "博士项目"
+	  ],
+	   shouke: [
+	    { name: "不限", value: 0 },
+	    { name: "面授班", value: 1 },
+	    { name: "网络班", value: 2 }
+	  ],
       filtersResult: 0,
       pageno: 1,
       y: 0,
@@ -289,6 +330,11 @@ export default {
           // console.table(response.data.info);
           that.zixun = [...that.zixun, ...response.data.info];
           that.noresult = !that.zixun.length;
+		    response.data.info.forEach(v => {
+		    v.xiangmuidnum = String(
+		      that.xiangMuClassArr.findIndex(e => e === v.xiangmuid)
+		    );
+		  });
         })
         .catch(function(error) {
           // console.log(error);
@@ -375,10 +421,10 @@ export default {
     max-width: 80%;
   }
 }
-// 新改页面
-.tl {
-    text-align: left;
-}
+ .tl {
+      text-align: left;
+  }
+// 新改页面-院校
 .school-container{
 	padding: 3vw;
 }
@@ -402,5 +448,86 @@ export default {
 .brand-985 {
   background: #e65757;
 }
+// 新改页面-简章
+.jianzhang-b {
+  // padding: 3vw;
+  // border-bottom: 1px solid #e4e4e4;
+  .img-box {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-right: 4.8vw;
+    padding-bottom: 1vw;
+  }
+  img {
+    width: 9.6vw;
+    height: 9.6vw;
+  }
+  .title {
+    margin-bottom: 2vw;
+  }
+  .name {
+    margin-bottom: 2vw;
+  }
+  .xiangmu-span {
+    color: white;
+    display: inline-block;
+    margin-right: 1vw;
+  }
+  .xiangmu-span0 {
+    background: #4794d9;
+  }
+  .xiangmu-span1 {
+    background: #22ac38;
+  }
+  .xiangmu-span2 {
+    background: #f4a930;
+  }
+  .xiangmu-span3 {
+    background: #d01f36;
+  }
+  .xiangmu-span4 {
+    background: #7f1fd0;
+  }
+  .span-box {
+    span {
+      box-sizing: border-box;
+      display: inline-block;
+      min-width: 16vw;
+      line-height: 5vw;
+      margin-right: 1.2vw;
+      padding: 0 1vw;
+    }
+    span:nth-of-type(1) {
+      background: #e1f2fe;
+      color: #679bd2;
+    }
+    span:nth-of-type(2) {
+      background: #ffebea;
+      color: #d57261;
+    }
+    span:nth-of-type(3) {
+      background: #ddf5ed;
+      color: #5eab8d;
+    }
+    span:nth-of-type(4) {
+      /*width: 20vw;*/
+      background: #ffefdf;
+      color: #d6a043;
+    }
+  }
+}
+
+
 
 </style>
