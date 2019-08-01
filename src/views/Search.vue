@@ -228,6 +228,9 @@ export default {
 	    "高端研修",
 	    "博士项目"
 	  ],
+	  filterResult:{
+		shouke: { name: "", value: 0 }
+	  },
 	   shouke: [
 	    { name: "不限", value: 0 },
 	    { name: "面授班", value: 1 },
@@ -311,6 +314,7 @@ export default {
       //   pagesize: 10
       // });
       let jiami = wjz({
+		shoukeid: that.filterResult.shouke.value,
         type: that.filtersResult,
         keywords: that.keywords,
         pageno: that.pageno,

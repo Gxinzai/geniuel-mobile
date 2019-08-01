@@ -426,8 +426,6 @@ export default {
   // 超出两行显示省略号
   .tj {
     padding-right: 3vw;
-	height: 24px;
-	overflow: hidden;
 	text-overflow: -o-ellipsis-lastline;
 	overflow: hidden;
 	text-overflow: ellipsis;

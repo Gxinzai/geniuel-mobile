@@ -54,7 +54,7 @@
                 style="width: 4.2775vw;"
                 alt=""
               />
-              <p class="whiteFont">在线报名</p>
+              <p class="">在线报名</p>
             </div>
           </router-link>
         </div>
@@ -116,13 +116,19 @@ export default {
   box-sizing: border-box;
   width: 25vw;
   height: 12vw;
-  color: white;
   p {
     margin-top: 3px;
   }
   a {
-    color: white;
+    color: #261E00;
   }
+}
+.footer-item:nth-child(2):hover,.footer-item:nth-child(3):hover{
+	 transform: scale(1.25, 1.25);
+    -webkit-transform: scale(1.25, 1.25);
+    -moz-transform: scale(1.25, 1.25);
+    -o-transform: scale(1.25, 1.25);
+	
 }	
 .footer-item + .footer-item {
   border-left: 1px solid white;

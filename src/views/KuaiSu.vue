@@ -10,8 +10,8 @@
           query: { type: 1 }
         }"
       >
-        <p class="f16 fc333">博士项目</p>
-        <p class="fc666 en">Doctoral Program</p>
+        <!-- <p class="f16 fc333">博士项目</p> -->
+        <!-- <p class="fc666 en">Doctoral Program</p> -->
         <img class="img poa" src="../assets/kuaisu1.png" alt="" />
       </router-link>
 
@@ -22,8 +22,8 @@
           query: { type: 2 }
         }"
       >
-        <p class="f16 fc333">在职硕士</p>
-        <p class="fc666 en">On-the-job Master's Degree</p>
+        <!-- <p class="f16 fc333">在职硕士</p> -->
+        <!-- <p class="fc666 en">On-the-job Master's Degree</p> -->
         <img class="img poa" src="../assets/kuaisu2.png" alt="" />
       </router-link>
       <router-link
@@ -33,8 +33,8 @@
           query: { type: 3 }
         }"
       >
-        <p class="f16 fc333">研修班</p>
-        <p class="fc666 en">Advanced seminar</p>
+        <!-- <p class="f16 fc333">研修班</p> -->
+        <!-- <p class="fc666 en">Advanced seminar</p> -->
         <img class="img poa" src="../assets/kuaisu3.png" alt="" />
       </router-link>
       <router-link
@@ -43,8 +43,8 @@
           path: 'kuaisuchuguo'
         }"
       >
-        <p class="f16 fc333">出国留学</p>
-        <p class="fc666 en">Overseas Studies</p>
+        <!-- <p class="f16 fc333">出国留学</p> -->
+        <!-- <p class="fc666 en">Overseas Studies</p> -->
         <img class="img poa" src="../assets/kuaisu4.png" alt="" />
       </router-link>
     </div>
@@ -110,7 +110,7 @@ export default {
   width: 44.6vw;
   height: 22vw;
   .img {
-    right: 10px;
+    right: 0px;
     bottom: 0;
   }
   .en {
@@ -119,27 +119,27 @@ export default {
 }
 .leixing:nth-of-type(1) {
   margin-bottom: 12vw;
-  background: #ffdfdf;
+  // background: #ffdfdf;
   img {
-    width: 19.07vw;
+    width: 44.6vw;
   }
 }
 .leixing:nth-of-type(2) {
-  background: #ffecc7;
+  // background: #ffecc7;
   img {
-    width: 16.93vw;
+    width: 44.6vw;
   }
 }
 .leixing:nth-of-type(3) {
-  background: #d0dff9;
+  // background: #d0dff9;
   img {
-    width: 18.4vw;
+     width: 44.6vw;
   }
 }
 .leixing:nth-of-type(4) {
-  background: #d2f9f6;
+  // background: #d2f9f6;
   img {
-    width: 16.4vw;
+    width: 44.6vw;
   }
 }
 .recommend-item {
