@@ -210,9 +210,9 @@ export default {
         { name: "社会科学院", fire: true },
         { name: "菲律宾国父大学", fire: true },
         { name: "UMT大学", fire: true },
-        { name: "经济学", fire: false },
-        { name: "马克思主义理论", fire: false },
-        { name: "金融学", fire: false }
+        { name: "技术经济及管理", fire: false },
+        { name: "国民经济学", fire: false },
+        { name: "马克思主义哲学", fire: false }
       ],
       filters: [
         // { value: 0, name: "综合" },

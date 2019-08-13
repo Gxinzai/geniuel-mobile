@@ -3,13 +3,19 @@
     <div class="header">
       <!--<img class="loaction" src="../assets/icon-loaction.png" />-->
       <!--<span class="loaction-word grayFont">位置</span>-->
-      <img class="logo" alt="logo" src="../assets/logo.png" />
-      <router-link to="/search">
-        <img class="search" src="../assets/icon-search.png" />
-      </router-link>
-      <router-link :to="!$root.userID ? '/login' : '/my'">
-        <img class="admin" src="../assets/icon-admin.png" />
-      </router-link>
+	  <div>
+		 <img class="logo" alt="logo" src="../assets/logo.png" />
+	  </div>
+	   <span class="logo-tel">400-718-8018</span> 
+	  <div>
+		   <router-link to="/search">
+		    <img class="search" src="../assets/icon-search.png" />
+		  </router-link>
+		  <router-link :to="!$root.userID ? '/login' : '/my'">
+		    <img class="admin" src="../assets/icon-admin.png" />
+		  </router-link>
+	  </div>
+     
     </div>
     <cube-slide :showDots="false" :data="banner">
       <cube-slide-item v-for="(item, index) in banner" :key="index">
@@ -257,7 +263,7 @@
             <img :src="n.thumb" alt="" />
             <div class="p3vw">
               <p class="tl ell f14 fc333 b">{{ n.title }}</p>
-              <p class="tj fc666">
+              <p class="tj fc666" style="-webkit-box-orient: vertical;">
                 {{ n.remark}}
               </p>
             </div>
@@ -363,6 +369,13 @@ export default {
     margin: 0 auto 0 3vw;
     width: 26.53vw;
   }
+  .logo-tel{
+	  position: relative;
+	  right: 10px;
+	  font-weight: bold;
+      font-size: 3.73vw;
+	  color: #261E00;
+  }
   .search {
     margin-right: 4vw;
     width: 5.07vw;
@@ -426,12 +439,19 @@ export default {
   // 超出两行显示省略号
   .tj {
     padding-right: 3vw;
-	text-overflow: -o-ellipsis-lastline;
-	overflow: hidden;
-	text-overflow: ellipsis;
 	display:-webkit-box;
-	-webkit-line-clamp: 2;
+	overflow: hidden;
+	white-space: normal !important; 
+	text-overflow: ellipsis;
+	text-overflow: -o-ellipsis-lastline;
+	word-wrap: break-word; 
+	-webkit-line-clamp: 2;	
+     /*! autoprefixer: off */
 	-webkit-box-orient: vertical;
+     /* autoprefixer: on */
+	line-height: 3.73vw;
+    height: 7.46vw;
+
   }
 }
 .guide-item + .guide-item {

@@ -131,6 +131,6 @@ export default {
 	
 }	
 .footer-item + .footer-item {
-  border-left: 1px solid white;
+  border-left: 1px solid rgba(255, 255, 255,0.3);
 }
 </style>
