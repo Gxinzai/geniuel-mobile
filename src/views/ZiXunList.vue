@@ -52,8 +52,8 @@
                 <div class="df fac">
                   <img :src="zx.thumb" class="thumb" v-if="zx.thumg" alt="" />
                   <div
-                    class="remark fc666 lh18 "
-                    v-html="zx.remark.slice(0, 50) + '...'"
+                    class="remark fc666 lh18 "                
+					v-html="zx.remark"
                   ></div>
                 </div>
                 <p class="time grayFont">{{ zx.addtime }}</p>
@@ -208,8 +208,14 @@ export default {
   .title {
     margin-bottom: 2vw;
   }
+ // 超出两行显示省略号
   .remark {
+	height: 36px;
     margin-bottom: 2vw;
+	overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   .time {
     margin-bottom: 1vw;
